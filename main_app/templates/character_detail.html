@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="detail__img">
+    <img src="{{character.image}}" alt="{{character.name}}" />
+</div>
+<div class="detail__name">
+    <h1 class="title">{{character.name}}</h1>
+</div>
+<div class="detail__container">
+
+    <div class="detail__songs mb-5">
+        <h4 class="title is-4">Stats</h4>
+
+        <!-- character.character_class.all is how you access stat variables/anything in the character_class model -->
+        
+        <!-- class song is used for styling purposes as of now -->
+        <div class="song">
+            <span>
+                <b>
+                    ‣
+                </b>
+            </span>
+            <span>
+                Class
+            </span>
+            <span>
+                {{character.character_class.name}}
+            </span>
+        </div>
+        <div class="song">
+            <span>
+                <b>
+                    ‣
+                </b>
+            </span>
+            <span>
+                Health
+            </span>
+            <span>
+                {{character.character_class.health|add:character.bonushealth}}
+            </span>
+        </div>
+        <div class="song">
+            <span>
+                <b>
+                    ‣
+                </b>
+            </span>
+            <span>
+                Strength
+            </span>
+            <span>
+                {{character.character_class.strength|add:character.bonusstrength}}
+            </span>
+        </div>
+        <div class="song">
+            <span>
+                <b>
+                    ‣
+                </b>
+            </span>
+            <span>
+                Speed
+            </span>
+            <span>
+                {{character.character_class.speed|add:character.bonusspeed}}
+            </span>
+        </div>
+        <div class="song">
+            <span>
+                <b>
+                    ‣
+                </b>
+            </span>
+            <span>
+                Defense
+            </span>
+            <span>
+                {{character.character_class.defense|add:character.bonusdefense}}
+            </span>
+        </div>
+        <div class="song">
+            <span>
+                <b>
+                    ‣
+                </b>
+            </span>
+            <span>
+                Dodge
+            </span>
+            <span>
+                {{character.character_class.dodge|add:character.bonusdodge}}
+            </span>
+        </div>
+        <div class="song">
+            <span>
+                <b>
+                    ‣
+                </b>
+            </span>
+            <span>
+                Block
+            </span>
+            <span>
+                {{character.character_class.block|add:character.bonusblock}}
+            </span>
+        </div>
+        <div class="song">
+            <span>
+                <b>
+                    ‣
+                </b>
+            </span>
+            <span>
+                Counter
+            </span>
+            <span>
+                {{character.character_class.counter|add:character.bonuscounter}}
+            </span>
+        </div>
+
+    </div>
+    <div class="detail__about">
+        <h4 class="title is-4">Background</h4>
+        <p>{{character.background}}</p>
+    </div>
+    <br />
+    <div class="buttons">
+        <a href="{% url 'character_update' character.pk %}" class="button is-info">
+            <span class="icon">
+                <i class="fas fa-edit"></i>
+            </span>
+        </a>
+        <a href="{% url 'character_delete' character.pk %}" class="button is-danger">
+            <span class="icon">
+                <i class="fas fa-trash-alt"></i>
+            </span>
+        </a>
+    </div>
+
+</div>
+{% endblock %}

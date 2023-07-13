@@ -1,0 +1,2 @@
+# Always remember to gitignore your .env file or else what's the point of secrecy!
+.env

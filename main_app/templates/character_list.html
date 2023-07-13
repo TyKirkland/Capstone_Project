@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Characters{% endblock %}
+
+{% block content %}
+
+<div class="gallery">
+    {% for character in characters %}
+    <a href="{% url 'character_detail' character.pk %}">
+        <div class="card">
+            <div class="card-image">
+                <figure class="image is-square">
+                    <img src="{{character.image}}" alt="{{character.name}}"/>
+                </figure>
+            </div>
+            <div class="card-header">
+                <p class="card-header-title">{{character.name}}</p>
+            </div>
+        </div>
+    </a>
+    {% empty %}
+    <article class="message">
+        <div class="message-header">
+            <p>No Characters Available</p>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+
+
+{% endblock %}
