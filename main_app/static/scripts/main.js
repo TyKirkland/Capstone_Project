@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const character1Element = document.getElementById("character1");
     const character2Element = document.getElementById("character2");
     
+    const battleResultsElement = document.getElementById("battle_results");
+    
     // this function is made to accept an html element
     function CharacterCreation(character){
 
@@ -20,6 +22,18 @@ document.addEventListener("DOMContentLoaded", function() {
         this.attack = function(opponent) {
             // this is where each instance of an attack will take place, gets repeated on a loop in the battle function until there is one winner
 
+            let resultElement1 = document.createElement("li");
+            let resultElement2 = document.createElement("li");
+            let resultElement3 = document.createElement("li");
+
+            resultElement1.textContent = `${this.name} attacks ${opponent.name}!`;
+
+            battleResultsElement.prepend(resultElement1);
+
+            // resultElement2.textContent = 'Success part 2';
+
+            // battleResultsElement.appendChild(resultElement2);
+            
             let attackerStrength = getRandomNum(this.strength);
             let attackerDefense = getRandomNum(this.defense);
             let defenderStrength = getRandomNum(opponent.strength);
@@ -44,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             // Math.random() returns a number between 0 and 1
-            if(Math.random() < dodgeChance) {
+            if(Math.random() < attackerDodgeChance) {
                 if(damage === 0){
                     console.log(opponent.name + "dodged the attack!");
                 }
@@ -63,8 +77,26 @@ document.addEventListener("DOMContentLoaded", function() {
         return Math.floor(Math.random() * (num + 1));
     }
 
+    let character1Turn = true;
+
+    function handleKeyPress(event){
+        if(character1.health > 0 && character2.health > 0) {
+            if(character1Turn === true){ 
+                character1.attack(character2);
+                character1Turn = false;
+            }
+            else{
+                character2.attack(character1);
+                character1Turn = true;
+            }
+        }
+    }
+
     // function that will loop until there is a winner
     function Battle(character1, character2) {
+        if(character1.speed < character2.speed) {
+            character1Turn = false
+        }
         // while(character1.health > 0 && character2.health > 0) {
         //     if(character1.speed > character2.speed) {
         //         character1.attack(character2);
@@ -80,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //         }
         //         character1.attack(character2);
         //     }
-        character1.attack(character2);
+        document.addEventListener("keydown", handleKeyPress);
     }
         // after the loop completes I need to output the winner here
 
