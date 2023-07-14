@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Fight!{% endblock %}
+
+{% block content %}
+
+<!-- Need to make an element that is a console/terminal type that will display the results of the fight/battle -->
+<!-- I want to eventually make the user push a button in between each attack instance -->
+
+<div id="character1" data-character_class="{{character1.character_class}}" data-health="{{character1.bonushealth|add:character1.character_class.health}}" data-strength="{{character1.bonusstrength|add:character1.character_class.strength}}" data-speed="{{character1.bonusspeed|add:character1.character_class.speed}}" data-defense="{{character1.bonusdefense|add:character1.character_class.defense}}" data-dodge="{{character1.bonusdodge|add:character1.character_class.dodge}}" data-block="{{character1.bonusblock|add:character1.character_class.block}}" data-counter="{{character1.bonuscounter|add:character1.character_class.counter}}">{{character1.name}}</div>
+<div id="character2" data-character_class="{{character2.character_class}}" data-health="{{character2.bonushealth|add:character2.character_class.health}}" data-strength="{{character2.bonusstrength|add:character2.character_class.strength}}" data-speed="{{character2.bonusspeed|add:character2.character_class.speed}}" data-defense="{{character2.bonusdefense|add:character2.character_class.defense}}" data-dodge="{{character2.bonusdodge|add:character2.character_class.dodge}}" data-block="{{character2.bonusblock|add:character2.character_class.block}}" data-counter="{{character2.bonuscounter|add:character2.character_class.counter}}">{{character2.name}}</div>
+
+{% endblock %}

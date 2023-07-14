@@ -62,34 +62,28 @@ class CharacterFight(TemplateView):
 def testFight(request):
     if request.method == 'POST':
 
+        # here we are getting each character's id to then throw into our url
         selected_characters_ids = request.POST.getlist('selected_characters')
         selected_characters_ids2 = request.POST.getlist('selected_characters2')
-        selected_characters = Character.objects.filter(id__in=selected_characters_ids)
-        selected_characters2 = Character.objects.filter(id__in=selected_characters_ids2)
 
-        # character_objects = [character for character in selected_characters]
-        for character in selected_characters:
-            print(character.name)
-            character1 = {
-                "name": f"{character.name}",
-                "health": f"{character.bonushealth}",
-                "strength": f"{character.bonusstrength}",
-                "speed": f"{character.bonusspeed}",
-                "defense": f"{character.bonusdefense}",
-                "dodge": f"{character.bonusdodge}",
-                "block": f"{character.bonusblock}",
-                "counter": f"{character.bonuscounter}",
-            }
-        return HttpResponse(character1["health"])
-        raw_data = request.body
-        print(raw_data)
-        try:
-            data = json.loads(raw_data)
-
-            test = data['name']
-            return HttpResponse(test)
-        except json.JSONDecodeError:
-            return HttpResponse("invalid")
+        # this automatically throws fight in front of the url
+        return redirect(f"{selected_characters_ids[0]}/{selected_characters_ids2[0]}")
     else:
         return HttpResponse(request.method)
 
+class CharacterBattle(TemplateView):
+    template_name = 'character_battle.html'
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        pk = [self.kwargs.get('pk')]
+        pk2 = [self.kwargs.get('pk2')]
+        character1 = Character.objects.filter(id__in=pk)
+        character2 = Character.objects.filter(id__in=pk2)
+        character1 = character1[0]
+        character2 = character2[0]
+        context['character1'] = character1
+        context['character2'] = character2
+        return context

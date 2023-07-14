@@ -10,5 +10,5 @@ urlpatterns = [
     path('<int:pk>/delete', views.CharacterDelete.as_view(), name='character_delete'),
     path('fight/', views.CharacterFight.as_view(), name='character_fight'),
     path('fight/characters', testFight, name='test_fight'),
-    
+    path('fight/<int:pk>/<int:pk2>/', views.CharacterBattle.as_view(), name='character_battle'),
 ]
