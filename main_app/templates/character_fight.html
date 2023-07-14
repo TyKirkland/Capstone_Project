@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Fight!{% endblock %}
+
+{% block content %}
+
+<div class="gallery">
+    <form method = "post" action="{% url 'test_fight' %}">
+        {% csrf_token %}
+        <select name="selected_characters" multiple>
+            {% for character in characters %}
+
+                <option value="{{character.id}}">{{character.name}}</option>
+
+            {% endfor %}
+        </select>
+        <select name="selected_characters2" multiple>
+            {% for character in characters %}
+
+                <option value="{{character.id}}">{{character.name}}</option>
+
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="FIGHT" />
+    </form>    
+</div>
+
+
+{% endblock %}

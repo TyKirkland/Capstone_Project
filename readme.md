@@ -4,7 +4,6 @@ I am creating a character creation battle arena game where the user has the abil
 # User Stories:
 My user will be anybody interested in solely creating customizable characters that will be stored for you and also those that wish to play around in a simulator type environment to see what fun interactions and fights they can create. My app will allow the user to create characters with different classes and more so the user can create a fantasy library of their dreams!
 
-
 # Wireframes:
 Undecided how the core pages will look/work.
 (Figma)

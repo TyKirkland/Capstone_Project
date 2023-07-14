@@ -50,5 +50,6 @@ class Character(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     # This makes it so you show the name of your object in the admin model page
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.background
+
