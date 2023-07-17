@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="detail__img">
+    <img src="{{armor.image}}" alt="{{armor.name}}" />
+</div>
+<div class="detail__name">
+    <h1 class="title">{{armor.name}}</h1>
+</div>
+<div class="detail__container">
+
+    <div class="detail__songs mb-5">
+        <h4 class="title is-4">Stats</h4>
+
+        <!-- character.character_class.all is how you access stat variables/anything in the character_class model -->
+        
+        <!-- class song is used for styling purposes as of now -->
+        <div class="song">
+            <span>
+                <b>
+                    ‣
+                </b>
+            </span>
+            <span>
+                Durability
+            </span>
+            <span>
+                {{armor.durability}}
+            </span>
+        </div>
+        <p class="">
+            <span>
+                How much damage the armor can take before breaking.
+            </span>
+        </p>
+        <div class="song">
+            <span>
+                <b>
+                    ‣
+                </b>
+            </span>
+            <span>
+                Bonus Health
+            </span>
+            <span>
+                {{armor.health}}
+            </span>
+        </div>
+        <p class="">
+            <span>
+                Bonus health given to the character.
+            </span>
+        </p>
+        <div class="song">
+            <span>
+                <b>
+                    ‣
+                </b>
+            </span>
+            <span>
+                Bonus Defense
+            </span>
+            <span>
+                {{armor.defense}}
+            </span>
+        </div>
+        <p class="">
+            <span>
+                Bonus defense given to the character.
+            </span>
+        </p>
+        <div class="song">
+            <span>
+                <b>
+                    ‣
+                </b>
+            </span>
+            <span>
+                Bonus Magic Defense
+            </span>
+            <span>
+                {{armor.magic_defense}}
+            </span>
+        </div>
+        <p class="">
+            <span>
+                Defense against magical attacks.
+            </span>
+        </p>
+        <div class="song">
+            <span>
+                <b>
+                    ‣
+                </b>
+            </span>
+            <span>
+                Bonus Health Regeneration
+            </span>
+            <span>
+                {{armor.health_regen}}
+            </span>
+        </div>
+        <p class="">
+            <span>
+                Heals character over time at a set rate.
+            </span>
+        </p>
+
+
+    </div>
+    <div class="detail__about">
+        <h4 class="title is-4">Background</h4>
+        <p>{{armor.background}}</p>
+    </div>
+    <br />
+    <div class="buttons">
+        <a href="{% url 'armor_update' armor.pk %}" class="button is-info">
+            <span class="icon">
+                <i class="fas fa-edit"></i>
+            </span>
+        </a>
+        <a href="{% url 'armor_delete' armor.pk %}" class="button is-danger">
+            <span class="icon">
+                <i class="fas fa-trash-alt"></i>
+            </span>
+        </a>
+    </div>
+
+</div>
+{% endblock %}

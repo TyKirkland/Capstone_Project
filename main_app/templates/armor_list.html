@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Armor{% endblock %}
+
+{% block content %}
+
+<div class="buttons homepage">
+    <a class="button is-primary" href="{% url 'armor_create' %}" value="Create Armor">Create Armor</a>
+</div>
+
+
+<div class="gallery">
+    
+    {% for armor in armors %}
+    <a href="{% url 'armor_detail' armor.pk %}">
+        <div class="card">
+            <div class="card-image">
+                <figure class="image is-square">
+                    <img src="{{armor.image}}" alt="{{armor.name}}"/>
+                </figure>
+            </div>
+            <div class="card-header">
+                <p class="card-header-title">{{armor.name}}</p>
+            </div>
+        </div>
+    </a>
+    {% empty %}
+    <article class="message">
+        <div class="message-header">
+            <p>No Armor Available</p>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

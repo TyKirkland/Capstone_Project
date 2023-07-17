@@ -10,10 +10,17 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # importing models
-from .models import Character, Character_Class
+from .models import Character, Character_Class, Armor, Weapon
 
 
 # Create your views here.
+class Home(TemplateView):
+    template_name = "home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
 class CharacterList(TemplateView):
     
     template_name = 'character_list.html'
@@ -27,7 +34,7 @@ class CharacterList(TemplateView):
 class CharacterCreate(CreateView):
     model = Character
     # these fields are what the user sees/can input when creating a new character
-    fields = ['name', 'image', 'character_class', 'background', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusdodge', 'bonusblock', 'bonuscounter']
+    fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'background']
     template_name = 'character_create.html'
     success_url = '/'
 
@@ -42,13 +49,90 @@ class CharacterDetail(DetailView):
     
 class CharacterUpdate(UpdateView):
     model = Character
-    fields = ['name', 'image', 'character_class', 'background', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusdodge', 'bonusblock', 'bonuscounter']
+    fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'background']
     template_name = 'character_update.html'
     success_url = '/'
 
 class CharacterDelete(DeleteView):
+
     model = Character
     template_name = 'character_delete_confirmation.html'
+    success_url = '/'
+
+class ArmorList(TemplateView):
+    
+    template_name = 'armor_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # the characters object will also give you access to the character class model that's related to it
+        context['armors'] = Armor.objects.all()
+        return context
+
+class ArmorCreate(CreateView):
+    model = Armor
+    # these fields are what the user sees/can input when creating a new character
+    fields = ['name', 'image', 'durability', 'health', 'defense', 'magic_defense', 'health_regen']
+    template_name = 'armor_create.html'
+    success_url = '/'
+
+class ArmorDetail(DetailView):
+    model = Armor
+    template_name = 'armor_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # you can/may need to add context['objectname'] = Objectname.objects.all()
+        return context
+    
+class ArmorUpdate(UpdateView):
+    model = Armor
+    fields = ['name', 'image', 'durability', 'health', 'defense', 'magic_defense', 'health_regen']
+    template_name = 'armor_update.html'
+    success_url = '/'
+
+class ArmorDelete(DeleteView):
+
+    model = Armor
+    template_name = 'armor_delete_confirmation.html'
+    success_url = '/'
+
+class WeaponList(TemplateView):
+    
+    template_name = 'weapon_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # the characters object will also give you access to the character class model that's related to it
+        context['weapons'] = Weapon.objects.all()
+        return context
+
+class WeaponCreate(CreateView):
+    model = Weapon
+    # these fields are what the user sees/can input when creating a new character
+    fields = ['name', 'image', 'strength', 'block', 'counter', 'crit', 'armor_piercing', 'life_steal', 'poison_chance', 'poison_damage']
+    template_name = 'weapon_create.html'
+    success_url = '/'
+
+class WeaponDetail(DetailView):
+    model = Weapon
+    template_name = 'weapon_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # you can/may need to add context['objectname'] = Objectname.objects.all()
+        return context
+    
+class WeaponUpdate(UpdateView):
+    model = Weapon
+    fields = ['name', 'image', 'strength', 'block', 'counter', 'crit', 'armor_piercing', 'life_steal', 'poison_chance', 'poison_damage']
+    template_name = 'weapon_update.html'
+    success_url = '/'
+
+class WeaponDelete(DeleteView):
+
+    model = Weapon
+    template_name = 'weapon_delete_confirmation.html'
     success_url = '/'
 
 class CharacterFight(TemplateView):

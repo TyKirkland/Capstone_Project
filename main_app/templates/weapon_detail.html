@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="detail__img">
-    <img src="{{character.image}}" alt="{{character.name}}" />
+    <img src="{{weapon.image}}" alt="{{weapon.name}}" />
 </div>
 <div class="detail__name">
-    <h1 class="title">{{character.name}}</h1>
+    <h1 class="title">{{weapon.name}}</h1>
 </div>
 <div class="detail__container">
 
@@ -21,73 +21,15 @@
                 </b>
             </span>
             <span>
-                Class
+                Bonus Strength
             </span>
             <span>
-                {{character.character_class.name}}
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Type of character and also determines their base stats.
-            </span>
-        </p>        
-        
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Weapon
-            </span>
-            <span>
-                {{character.weapon.name}}
+                {{weapon.strength}}
             </span>
         </div>
         <p class="">
             <span>
-                Impacts many attack variables and adds bonuses.
-            </span>
-        </p>
-
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Armor
-            </span>
-            <span>
-                {{character.armor.name}}
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Provides the character with defense and other stats.
-            </span>
-        </p>
-
-
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Health
-            </span>
-            <span>
-                {{character.character_class.health|add:character.bonushealth}}
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Life of the character which is affected by each attack until one character reaches 0.
+                Strength given to the character.
             </span>
         </p>
         <div class="song">
@@ -97,15 +39,15 @@
                 </b>
             </span>
             <span>
-                Strength
+                Bonus Block Chance
             </span>
             <span>
-                {{character.character_class.strength|add:character.bonusstrength}}
+                {{weapon.block}}%
             </span>
         </div>
         <p class="">
             <span>
-                Used to randomly roll against the opponents defense stat.
+                Chance the user will block an incoming attack.
             </span>
         </p>
         <div class="song">
@@ -115,15 +57,15 @@
                 </b>
             </span>
             <span>
-                Speed
+                Bonus Counter Chance
             </span>
             <span>
-                {{character.character_class.speed|add:character.bonusspeed}}
+                {{weapon.counter}}%
             </span>
         </div>
         <p class="">
             <span>
-                Used to determine who goes first.
+                Chance the user will counter an incoming attack after a successful block.
             </span>
         </p>
         <div class="song">
@@ -133,15 +75,15 @@
                 </b>
             </span>
             <span>
-                Defense
+                Critical Hit Chance
             </span>
             <span>
-                {{character.character_class.defense|add:character.bonusdefense}}
+                {{weapon.crit}}%
             </span>
         </div>
         <p class="">
             <span>
-                Used to randomly roll against the opponents strength stat.
+                Chance the user has to critically hit the oppponent.
             </span>
         </p>
         <div class="song">
@@ -151,15 +93,15 @@
                 </b>
             </span>
             <span>
-                Dodge
+                Armor Piercing Chance
             </span>
             <span>
-                {{character.character_class.dodge|add:character.bonusdodge}}%
+                {{weapon.armor_piercing}}%
             </span>
         </div>
         <p class="">
             <span>
-                Percent chance you will dodge the opponents attack.
+                Chance the user has to pierce through the opponents armor/defenses and full damage.
             </span>
         </p>
         <div class="song">
@@ -169,15 +111,15 @@
                 </b>
             </span>
             <span>
-                Block
+                Life Steal Percentage
             </span>
             <span>
-                {{character.character_class.block|add:character.bonusblock}}%
+                {{weapon.life_steal}}%
             </span>
         </div>
         <p class="">
             <span>
-                Percent chance you will block the opponents attack.
+                What percentage of life you heal back after a successful hit.
             </span>
         </p>
         <div class="song">
@@ -187,15 +129,33 @@
                 </b>
             </span>
             <span>
-                Counter
+                Poison Chance
             </span>
             <span>
-                {{character.character_class.counter|add:character.bonuscounter}}%
+                {{weapon.poison_chance}}%
             </span>
         </div>
         <p class="">
             <span>
-                Percent chance you will follow a block up with a counterattack.
+                Percent chance you poison an enemy upon a successful attack.
+            </span>
+        </p>
+        <div class="song">
+            <span>
+                <b>
+                    ‣
+                </b>
+            </span>
+            <span>
+                Poison Damage
+            </span>
+            <span>
+                {{weapon.poison_damage}}
+            </span>
+        </div>
+        <p class="">
+            <span>
+                Damage the poison inflicts each time.
             </span>
         </p>
 
@@ -203,16 +163,16 @@
     </div>
     <div class="detail__about">
         <h4 class="title is-4">Background</h4>
-        <p>{{character.background}}</p>
+        <p>{{weapon.background}}</p>
     </div>
     <br />
     <div class="buttons">
-        <a href="{% url 'character_update' character.pk %}" class="button is-info">
+        <a href="{% url 'weapon_update' weapon.pk %}" class="button is-info">
             <span class="icon">
                 <i class="fas fa-edit"></i>
             </span>
         </a>
-        <a href="{% url 'character_delete' character.pk %}" class="button is-danger">
+        <a href="{% url 'weapon_delete' weapon.pk %}" class="button is-danger">
             <span class="icon">
                 <i class="fas fa-trash-alt"></i>
             </span>

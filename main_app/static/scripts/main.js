@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
         this.dodge = parseFloat(character.dataset.dodge);
         this.block = parseFloat(character.dataset.block);
         this.counter = parseFloat(character.dataset.counter);
+        this.character_id = parseFloat(character.dataset.character_id);
 
         // methods
         this.attack = function(opponent) {
@@ -25,14 +26,16 @@ document.addEventListener("DOMContentLoaded", function() {
             let resultElement1 = document.createElement("li");
             let resultElement2 = document.createElement("li");
             let resultElement3 = document.createElement("li");
-
-            resultElement1.textContent = `${this.name} attacks ${opponent.name}!`;
-
-            battleResultsElement.prepend(resultElement1);
+            let br = document.createElement("br");
+            let br2 = document.createElement("br");
+            let br3 = document.createElement("br");
 
             // resultElement2.textContent = 'Success part 2';
 
             // battleResultsElement.appendChild(resultElement2);
+
+            let attackerHealthElement = document.getElementById(this.character_id);
+            let defenderHealthElement = document.getElementById(opponent.character_id);
             
             let attackerStrength = getRandomNum(this.strength);
             let attackerDefense = getRandomNum(this.defense);
@@ -53,17 +56,246 @@ document.addEventListener("DOMContentLoaded", function() {
             let attackerBlockChance = this.block / 100;
             let attackerCounterChance = this.counter / 100;
 
-            if(attackerStrength >= 80){
-                console.log()
+            if (defenderBlockChance >= Math.random()) {
+                const blockStatements = [
+                    `${opponent.name} skillfully blocks the attack completely and nullifies the damage!`,
+                    `${opponent.name} raises their shield just in time, blocking the attack and leaving ${this.name} surprised!`,
+                    `With lightning-fast reflexes, ${opponent.name} intercepts the attack and nullifies the damage!`,
+                    `Like a fortress, ${opponent.name}'s defense holds strong against the incoming assault!`,
+                    `In an impressive display of defensive prowess, ${opponent.name} repels the attack effortlessly!`,
+                    `${opponent.name} evades the attack flawlessly, proving their mastery in defensive maneuvers!`,
+                ];
+                const randomBlockStatement = blockStatements[Math.floor(Math.random() * blockStatements.length)];
+                
+                resultElement1.textContent = randomBlockStatement;
+                resultElement1.style.color = "gold";
+                battleResultsElement.prepend(resultElement3);
+                
+                if (defenderCounterChance >= Math.random()) {
+                  const counterStatements = [
+                    `${opponent.name} swiftly counterattacks, catching ${this.name} off guard and dealing a powerful blow!`,
+                    `Seizing the opportunity, ${opponent.name} launches a counterstrike, striking back at ${this.name} with unexpected force!`,
+                    `Responding with precision, ${opponent.name} retaliates and delivers a devastating counterattack to ${this.name}!`,
+                    `With a calculated response, ${opponent.name} turns defense into offense, surprising ${this.name} with a fierce counterassault!`,
+                    `${opponent.name} skillfully counters, leaving ${this.name} momentarily defenseless against their swift and accurate strikes!`,
+                    `${opponent.name} channels the energy of the blocked attack into a powerful counter, hitting ${this.name} with incredible force!`,
+                    ];
+                  const randomCounterStatement = counterStatements[Math.floor(Math.random() * counterStatements.length)];
+                
+                  damage = defenderStrength - attackerDefense;
+                  if(damage <= 0){
+                    resultElement2.textContent = ` ${opponent.name} turns with the momentum, striking ${this.name} but dealing no damage!`;
+                  }
+                  else{
+                      resultElement2.textContent = randomCounterStatement + ` It inflicts ${damage} damage to ${this.name}!`;
+                      this.health -= damage;
+                      attackerHealthElement.textContent = `${this.health} Health`;
+                  }
+                  resultElement2.style.color = "magenta";
+                  battleResultsElement.prepend(resultElement2);
+                }
+
+                const attackStatements = [
+                    `${this.name} launches a powerful attack at ${opponent.name}!`,
+                    `${this.name} strikes swiftly and forcefully at ${opponent.name}!`,
+                    `${this.name} tries for a solid blow to ${opponent.name}!`,
+                    `With determination, ${this.name} swings forward to strike ${opponent.name}!`,
+                    `Taking aim, ${this.name} unleashes an attack on ${opponent.name}!`,
+                ];
+
+                const randomAttackStatement = attackStatements[Math.floor(Math.random() * attackStatements.length)];
+                resultElement3.textContent = randomAttackStatement;
+                
+                battleResultsElement.prepend(resultElement1);
+                battleResultsElement.prepend(resultElement3);
+                battleResultsElement.prepend(br);
+                battleResultsElement.prepend(br2);
+                battleResultsElement.prepend(br3);
+
+                
             }
 
-            // Math.random() returns a number between 0 and 1
-            if(Math.random() < attackerDodgeChance) {
-                if(damage === 0){
-                    console.log(opponent.name + "dodged the attack!");
+            else if (attackerDodgeChance >= Math.random()) {
+                const attackStatements = [
+                    `${this.name} launches a powerful attack at ${opponent.name}!`,
+                    `${this.name} strikes swiftly and forcefully at ${opponent.name}!`,
+                    `${this.name} tries for a solid blow to ${opponent.name}!`,
+                    `With determination, ${this.name} swings forward to strike ${opponent.name}!`,
+                    `Taking aim, ${this.name} unleashes an attack on ${opponent.name}!`,
+                ];
+
+                const dodgeStatements = [
+                  `${opponent.name} gracefully dodges ${this.name}'s attack, evading it with finesse!`,
+                  `${opponent.name} displays remarkable agility as they effortlessly dodge ${this.name}'s incoming strike!`,
+                  `With incredible reflexes, ${opponent.name} sidesteps ${this.name}'s attack, narrowly avoiding any harm!`,
+                  `In a display of acrobatic skill, ${opponent.name} somersaults away, skillfully dodging ${this.name}'s attack!`,
+                  `${opponent.name} anticipates the attack and swiftly moves out of harm's way, leaving ${this.name} frustrated!`,
+                ];
+                
+                const randomDodgeStatement = dodgeStatements[Math.floor(Math.random() * dodgeStatements.length)];
+                const randomAttackStatement = attackStatements[Math.floor(Math.random() * attackStatements.length)];
+
+                resultElement1.textContent = randomAttackStatement;
+                resultElement2.textContent = randomDodgeStatement;
+                resultElement2.style.color = "cyan";
+                battleResultsElement.prepend(resultElement2);
+                battleResultsElement.prepend(resultElement1);
+                battleResultsElement.prepend(br, br2, br3);
+            }
+            
+            else if(damage > 0){
+
+                if (attackerStrength >= 80) {
+                    resultElement1.textContent = `${this.name} unleashes a devastating attack on ${opponent.name} with unmatched strength!`;
+                    resultElement2.textContent = `The sheer force of the attack overwhelms ${opponent.name}!`;
+                    resultElement3.textContent = `${opponent.name} sustains a massive ${damage} damage!`;
+                    resultElement3.style.color = "red";
+                  
+                    battleResultsElement.prepend(resultElement3);
+                    battleResultsElement.prepend(resultElement2);
+                    battleResultsElement.prepend(resultElement1);
+                    battleResultsElement.prepend(br);
+                    battleResultsElement.prepend(br2);
+                    battleResultsElement.prepend(br3);
+            }
+                else if (attackerStrength >= 60) {
+                    resultElement1.textContent = `${this.name} launches a powerful attack at ${opponent.name}!`;
+                    resultElement2.textContent = `${opponent.name} tries to defend, but ${this.name}'s strength overpowers the defense!`;
+                    resultElement3.textContent = `${opponent.name} suffers ${damage} damage!`;
+                    resultElement3.style.color = "red";
+                
+                    battleResultsElement.prepend(resultElement3);
+                    battleResultsElement.prepend(resultElement2);
+                    battleResultsElement.prepend(resultElement1);
+                    battleResultsElement.prepend(br);
+                    battleResultsElement.prepend(br2);
+                    battleResultsElement.prepend(br3);
+                } 
+                else if (attackerStrength >= 40) {
+                    resultElement1.textContent = `${this.name} strikes swiftly and forcefully at ${opponent.name}!`;
+                    resultElement2.textContent = `${opponent.name} tries to block, but the attack breaks through the defense!`;
+                    resultElement3.textContent = `${opponent.name} receives ${damage} damage!`;
+                    resultElement3.style.color = "red";
+                
+                    battleResultsElement.prepend(resultElement3);
+                    battleResultsElement.prepend(resultElement2);
+                    battleResultsElement.prepend(resultElement1);
+                    battleResultsElement.prepend(br);
+                    battleResultsElement.prepend(br2);
+                    battleResultsElement.prepend(br3);
+                } 
+                else if (attackerStrength >= 20) {
+                    resultElement1.textContent = `${this.name} delivers a solid blow to ${opponent.name}!`;
+                    resultElement2.textContent = `Despite ${opponent.name}'s attempt to counter, the attack lands successfully!`;
+                    resultElement3.textContent = `${opponent.name} takes ${damage} damage!`;
+                    resultElement3.style.color = "red";
+                
+                    battleResultsElement.prepend(resultElement3);
+                    battleResultsElement.prepend(resultElement2);
+                    battleResultsElement.prepend(resultElement1);
+                    battleResultsElement.prepend(br);
+                    battleResultsElement.prepend(br2);
+                    battleResultsElement.prepend(br3);
+                } 
+                else {
+                    resultElement1.textContent = `${this.name} launches an attack at ${opponent.name}!`;
+                    resultElement2.textContent = `${opponent.name} manages to defend against the attack but still takes ${damage} damage!`;
+                    resultElement2.style.color = "red";
+                
+                    battleResultsElement.prepend(resultElement2);
+                    battleResultsElement.prepend(resultElement1);
+                    battleResultsElement.prepend(br);
+                    battleResultsElement.prepend(br2);
+                    battleResultsElement.prepend(br3);
                 }
-                console.log(opponent.name + " dodges the attack!");
-                return;
+
+                opponent.health -= damage
+                defenderHealthElement.textContent = `${opponent.health} Health`;
+
+            }
+            else{
+                if (defenderDefense >= 80) {
+                    resultElement3.textContent = `${this.name} tries to attack!`
+                    resultElement1.textContent = ` ${opponent.name}'s incredible defense holds!`;
+                    resultElement2.textContent = ` No damage is inflicted on ${opponent.name}!`;
+                    resultElement2.style.color = "blue";
+                    battleResultsElement.prepend(resultElement2);
+                    battleResultsElement.prepend(resultElement1);
+                    battleResultsElement.prepend(resultElement3);
+                    battleResultsElement.prepend(br);
+                    battleResultsElement.prepend(br2)
+                    battleResultsElement.prepend(br3);
+                } 
+                else if (defenderDefense >= 60) {
+                    resultElement3.textContent = `${this.name} attacks!`
+                    resultElement1.textContent = ` ${opponent.name} skillfully stops the attack with his armor!`;
+                    resultElement2.textContent = ` The defense successfully nullifies the damage!`;
+                    resultElement2.style.color = "blue";
+                    battleResultsElement.prepend(resultElement2);
+                    battleResultsElement.prepend(resultElement1);
+                    battleResultsElement.prepend(resultElement3);
+                    battleResultsElement.prepend(br);
+                    battleResultsElement.prepend(br2);
+                    battleResultsElement.prepend(br3);
+                } 
+                else if (defenderDefense >= 40) {
+                    resultElement3.textContent = `${this.name} attacks!`
+                    resultElement1.textContent = ` ${opponent.name} swiftly intercepts!`;
+                    resultElement2.textContent = ` The defense effectively mitigates the damage!`;
+                    resultElement2.style.color = "blue";
+                    battleResultsElement.prepend(resultElement2);
+                    battleResultsElement.prepend(resultElement1);
+                    battleResultsElement.prepend(resultElement3);
+                    battleResultsElement.prepend(br);
+                    battleResultsElement.prepend(br2);
+                    battleResultsElement.prepend(br3);
+                } 
+                else if (defenderDefense >= 20) {
+                    resultElement3.textContent = `${this.name} swings forward!`
+                    resultElement1.textContent = ` ${opponent.name} manages to withstand the attack!`;
+                    resultElement2.textContent = ` The defense stops the damage!`;
+                    resultElement2.style.color = "blue";
+                    battleResultsElement.prepend(resultElement2);
+                    battleResultsElement.prepend(resultElement1);
+                    battleResultsElement.prepend(resultElement3);
+                    battleResultsElement.prepend(br);
+                    battleResultsElement.prepend(br2);
+                    battleResultsElement.prepend(br3);
+                } 
+                else {
+                    resultElement3.textContent = ` ${this.name} stumbles forward and swings`;
+                    resultElement1.textContent = ` ${opponent.name} trips but somehow withstands the attack!`;
+                    resultElement2.textContent = ` No damage is taken by ${opponent.name}!`;
+                    resultElement2.style.color = "blue";
+                    battleResultsElement.prepend(resultElement2);
+                    battleResultsElement.prepend(resultElement1);
+                    battleResultsElement.prepend(resultElement3);
+                    battleResultsElement.prepend(br);
+                    battleResultsElement.prepend(br2);
+                    battleResultsElement.prepend(br3);
+                }
+            }
+            if(this.health < 0){
+                let resultElement1 = document.createElement("li");
+                let br1 = document.createElement("br");
+                let br2 = document.createElement("br");
+                let br3 = document.createElement("br");
+                resultElement1.textContent = `${opponent.name} Wins!!!`;
+                battleResultsElement.prepend(resultElement1);
+                battleResultsElement.prepend(br1);
+                battleResultsElement.prepend(br2);
+                battleResultsElement.prepend(br3);
+            }
+            else if(opponent.health < 0){
+                let resultElement1 = document.createElement("li");
+                let br1 = document.createElement("br");
+                let br2 = document.createElement("br");
+                let br3 = document.createElement("br");
+                resultElement1.textContent = `${this.name} Wins!!!`;
+                battleResultsElement.prepend(resultElement1);
+                battleResultsElement.prepend(br1);
+                battleResultsElement.prepend(br2);
+                battleResultsElement.prepend(br3);
             }
         }
     }
@@ -122,3 +354,13 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log("char1class: " + character1.character_class);
     console.log("char2health: " + character2.health, character2.strength, character2.speed);
 })
+
+$(".navbar-burger").click(function () {
+    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+    $(".navbar-burger").toggleClass("is-active");
+    $(".navbar-menu").toggleClass("is-active");
+  });
+
+  $(".dropdown").click(function(event) {
+    $(this).toggleClass("is-active")
+  })

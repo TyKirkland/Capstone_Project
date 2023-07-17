@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Weapons{% endblock %}
+
+{% block content %}
+
+<div class="buttons homepage">
+    <a class="button is-primary" href="{% url 'weapon_create' %}" value="Create Weapon">Create Weapon</a>
+</div>
+
+
+<div class="gallery">
+    {% for weapon in weapons %}
+    <a href="{% url 'weapon_detail' weapon.pk %}">
+        <div class="card">
+            <div class="card-image">
+                <figure class="image is-square">
+                    <img src="{{weapon.image}}" alt="{{weapon.name}}"/>
+                </figure>
+            </div>
+            <div class="card-header">
+                <p class="card-header-title">{{weapon.name}}</p>
+            </div>
+        </div>
+    </a>
+    {% empty %}
+    <article class="message">
+        <div class="message-header">
+            <p>No Weapons Available</p>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+
+
+{% endblock %}
