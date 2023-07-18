@@ -1,31 +1,32 @@
 {% extends 'base.html' %}
 
-{% block title %}Characters{% endblock %}
+{% block title %}Weapons{% endblock %}
 
 {% block content %}
 
 <div class="buttons homepage">
-    <a class="button is-primary" href="{% url 'character_create' %}" value="Create Character">Create Character</a>
+    <a class="button is-primary" href="{% url 'spell_create' %}" value="Create Spell">Create Spell</a>
 </div>
 
+
 <div class="gallery">
-    {% for character in characters %}
-    <a class="card" href="{% url 'character_detail' character.pk %}">
+    {% for spell in spells %}
+    <a href="{% url 'spell_detail' spell.pk %}">
         <div class="card">
             <div class="card-image">
                 <figure class="image is-square">
-                    <img src="{{character.image}}" alt="{{character.name}}"/>
+                    <img src="{{spell.image}}" alt="{{spell.name}}"/>
                 </figure>
             </div>
             <div class="card-header">
-                <p class="card-header-title">{{character.name}}</p>
+                <p class="card-header-title">{{spell.name}}</p>
             </div>
         </div>
     </a>
     {% empty %}
     <article class="message">
         <div class="message-header">
-            <p>No Characters Available</p>
+            <p>No Spells Available</p>
         </div>
     </article>
     {% endfor %}

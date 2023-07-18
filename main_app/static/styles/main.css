@@ -1,3 +1,4 @@
+
 body {
     background-color: #121212;
     color: #ffffff;
@@ -29,6 +30,7 @@ body {
   
   .gallery {
     transition: 0.1s linear;
+    place-items: center;
   }
 
   .card {
@@ -166,3 +168,24 @@ body {
 .homepagebutton{
   width: 115px
 }
+
+.centered{
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.margin{
+  margin: 50px
+}
+
+/* @media (max-width: 3000px) { 
+  .navbar-menu {
+    display: none; 
+    flex-direction: column;
+  }
+
+  .navbar-burger {
+    display: block; 
+  }
+} */

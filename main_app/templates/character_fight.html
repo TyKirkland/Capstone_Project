@@ -4,8 +4,8 @@
 
 {% block content %}
 
-<div class="gallery">
-    <form method = "post" action="{% url 'test_fight' %}">
+<div class="centered">
+    <form class="centered" method = "post" action="{% url 'test_fight' %}">
         {% csrf_token %}
         <select name="selected_characters" multiple>
             {% for character in characters %}
@@ -14,6 +14,7 @@
 
             {% endfor %}
         </select>
+        <input class="margin" type="submit" value="FIGHT" />
         <select name="selected_characters2" multiple>
             {% for character in characters %}
 
@@ -22,7 +23,6 @@
             {% endfor %}
         </select>
 
-        <input type="submit" value="FIGHT" />
     </form>    
 </div>
 

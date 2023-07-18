@@ -10,7 +10,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # importing models
-from .models import Character, Character_Class, Armor, Weapon
+from .models import Character, Character_Class, Armor, Weapon, Spell
 
 
 # Create your views here.
@@ -72,7 +72,7 @@ class ArmorList(TemplateView):
 class ArmorCreate(CreateView):
     model = Armor
     # these fields are what the user sees/can input when creating a new character
-    fields = ['name', 'image', 'durability', 'health', 'defense', 'magic_defense', 'health_regen']
+    fields = ['name', 'image', 'durability', 'health', 'defense', 'magic_defense', 'health_regen', 'background']
     template_name = 'armor_create.html'
     success_url = '/'
 
@@ -87,7 +87,7 @@ class ArmorDetail(DetailView):
     
 class ArmorUpdate(UpdateView):
     model = Armor
-    fields = ['name', 'image', 'durability', 'health', 'defense', 'magic_defense', 'health_regen']
+    fields = ['name', 'image', 'durability', 'health', 'defense', 'magic_defense', 'health_regen', 'background']
     template_name = 'armor_update.html'
     success_url = '/'
 
@@ -110,7 +110,7 @@ class WeaponList(TemplateView):
 class WeaponCreate(CreateView):
     model = Weapon
     # these fields are what the user sees/can input when creating a new character
-    fields = ['name', 'image', 'strength', 'block', 'counter', 'crit', 'armor_piercing', 'life_steal', 'poison_chance', 'poison_damage']
+    fields = ['name', 'image', 'strength', 'block', 'counter', 'crit', 'armor_piercing', 'life_steal', 'poison_chance', 'poison_damage', 'background']
     template_name = 'weapon_create.html'
     success_url = '/'
 
@@ -125,7 +125,7 @@ class WeaponDetail(DetailView):
     
 class WeaponUpdate(UpdateView):
     model = Weapon
-    fields = ['name', 'image', 'strength', 'block', 'counter', 'crit', 'armor_piercing', 'life_steal', 'poison_chance', 'poison_damage']
+    fields = ['name', 'image', 'strength', 'block', 'counter', 'crit', 'armor_piercing', 'life_steal', 'poison_chance', 'poison_damage', 'background']
     template_name = 'weapon_update.html'
     success_url = '/'
 
@@ -134,6 +134,45 @@ class WeaponDelete(DeleteView):
     model = Weapon
     template_name = 'weapon_delete_confirmation.html'
     success_url = '/'
+    
+class SpellList(TemplateView):
+    
+    template_name = 'spell_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # the characters object will also give you access to the character class model that's related to it
+        context['spells'] = Spell.objects.all()
+        return context
+
+class SpellCreate(CreateView):
+    model = Spell
+    # these fields are what the user sees/can input when creating a new character
+    fields = ['name', 'image', 'on_use', 'water_damage', 'earth_damage', 'fire_damage', 'air_damage', 'description']
+    template_name = 'spell_create.html'
+    success_url = '/'
+
+class SpellDetail(DetailView):
+    model = Spell
+    template_name = 'spell_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # you can/may need to add context['objectname'] = Objectname.objects.all()
+        return context
+    
+class SpellUpdate(UpdateView):
+    model = Spell
+    fields = ['name', 'image', 'on_use', 'water_damage', 'earth_damage', 'fire_damage', 'air_damage', 'description']
+    template_name = 'spell_update.html'
+    success_url = '/'
+
+class SpellDelete(DeleteView):
+
+    model = Spell
+    template_name = 'spell_delete_confirmation.html'
+    success_url = '/'
+
 
 class CharacterFight(TemplateView):
     template_name = 'character_fight.html'

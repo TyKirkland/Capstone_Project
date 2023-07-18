@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %}Characters{% endblock %}
+{% block title %}Battle Arena{% endblock %}
 
 {% block content %}
 
 <div class="homepage">
-    <img class="logo" src="../static/images/BattleArenaLogo.png" alt="Battle Arena" />
+    <img class="logo" src="../static/images/BattleArenaLogo.png" alt="Battle Arena" ></img>
     <div class="buttons homepagebuttons">
         <a class="button homepagebutton" href="{% url 'weapon_list' %}">Weapons</a>
         <a class="button homepagebutton" href="{% url 'character_list' %}">Characters</a>
         <a class="button homepagebutton" href="{% url 'armor_list' %}">Armor</a>
+        <a class="button homepagebutton" href="{% url 'spell_list' %}">Spells</a>
     </div>
 </div>
 

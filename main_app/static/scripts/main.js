@@ -56,6 +56,8 @@ document.addEventListener("DOMContentLoaded", function() {
             let attackerBlockChance = this.block / 100;
             let attackerCounterChance = this.counter / 100;
 
+            console.log("dodge: "+defenderDodgeChance)
+
             if (defenderBlockChance >= Math.random()) {
                 const blockStatements = [
                     `${opponent.name} skillfully blocks the attack completely and nullifies the damage!`,
@@ -115,7 +117,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 
             }
 
-            else if (attackerDodgeChance >= Math.random()) {
+            else if (defenderDodgeChance >= Math.random()) {
+                console.log(defenderDodgeChance)
                 const attackStatements = [
                     `${this.name} launches a powerful attack at ${opponent.name}!`,
                     `${this.name} strikes swiftly and forcefully at ${opponent.name}!`,
@@ -157,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     battleResultsElement.prepend(br);
                     battleResultsElement.prepend(br2);
                     battleResultsElement.prepend(br3);
-            }
+                }
                 else if (attackerStrength >= 60) {
                     resultElement1.textContent = `${this.name} launches a powerful attack at ${opponent.name}!`;
                     resultElement2.textContent = `${opponent.name} tries to defend, but ${this.name}'s strength overpowers the defense!`;
