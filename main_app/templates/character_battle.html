@@ -9,18 +9,53 @@
 
 <div class="battle_console">
 
-    <div id="character1" data-character_id="{{character1.id}}" data-name="{{character1.name}}" data-character_class="{{character1.character_class}}" data-health="{{character1.bonushealth|add:character1.character_class.health}}" data-strength="{{character1.bonusstrength|add:character1.character_class.strength}}" data-speed="{{character1.bonusspeed|add:character1.character_class.speed}}" data-defense="{{character1.bonusdefense|add:character1.character_class.defense}}" data-dodge="{{character1.bonusdodge|add:character1.character_class.dodge}}" data-block="{{character1.bonusblock|add:character1.character_class.block}}" data-counter="{{character1.bonuscounter|add:character1.character_class.counter}}">
-        <img class="character-image" src="{{character1.image}}" alt="{{character1.name}}">
-        {{character1.name}}
-        <div id="{{character1.id}}">{{character1.bonushealth|add:character1.character_class.health}} Health</div>
+    <div id="character1" class="fighting_character" data-character_id="{{character1.id}}" data-name="{{character1.name}}" data-character_class="{{character1.character_class}}" data-health="{{character1.bonushealth|add:character1.character_class.health}}" data-strength="{{character1.bonusstrength|add:character1.character_class.strength}}" data-speed="{{character1.bonusspeed|add:character1.character_class.speed}}" data-defense="{{character1.bonusdefense|add:character1.character_class.defense}}" data-dodge="{{character1.bonusdodge|add:character1.character_class.dodge}}" data-block="{{character1.bonusblock|add:character1.character_class.block}}" data-counter="{{character1.bonuscounter|add:character1.character_class.counter}}">
+        <div class="">
+            <img class="character-image" src="{{character1.image}}" alt="{{character1.name}}">
+            {{character1.name}}
+            <div id="{{character1.id}}">{{character1.bonushealth|add:character1.character_class.health}} Health</div>
+        </div>
+        <div class="spells">
+            {% if character1.spell1 %}
+                <div id="spell_{{character1.spell1.id}}"><img class="spell_image" src="{{character1.spell1.image}}" alt="{{character1.spell1.name}}"></img><p class="spell_text">{{character1.spell1.name}}</p></div>
+            {% endif %}
+            {% if character1.spell2 %}
+                <div id="spell_{{character1.spell2.id}}"><img class="spell_image" src="{{character1.spell2.image}}" alt="{{character1.spell1.name}}"></img><p class="spell_text">{{character1.spell2.name}}</p></div>
+            {% endif %}
+            {% if character1.spell3 %}
+                <div id="spell_{{character1.spell3.id}}"><img class="spell_image" src="{{character1.spell3.image}}" alt="{{character1.spell3.name}}"></img><p class="spell_text">{{character1.spell3.name}}</p></div>
+            {% endif %}
+            {% if character1.spell4 %}
+                <div id="spell_{{character1.spell4.id}}"><img class="spell_image" src="{{character1.spell4.image}}" alt="{{character1.spell4.name}}"></img><p class="spell_text">{{character1.spell4.name}}</p></div>
+            {% endif %}
+        </div>
     </div>
 
     <ul id="battle_results"></ul>
 
-    <div id="character2" data-character_id="{{character2.id}}" data-name="{{character2.name}}" data-character_class="{{character2.character_class}}" data-health="{{character2.bonushealth|add:character2.character_class.health}}" data-strength="{{character2.bonusstrength|add:character2.character_class.strength}}" data-speed="{{character2.bonusspeed|add:character2.character_class.speed}}" data-defense="{{character2.bonusdefense|add:character2.character_class.defense}}" data-dodge="{{character2.bonusdodge|add:character2.character_class.dodge}}" data-block="{{character2.bonusblock|add:character2.character_class.block}}" data-counter="{{character2.bonuscounter|add:character2.character_class.counter}}">
-        <img class="character-image" src="{{character2.image}}" alt="{{character2.name}}">
-        {{character2.name}}
-        <div id="{{character2.id}}">{{character2.bonushealth|add:character2.character_class.health}} Health</div>
+    <div id="character2" class="fighting_character" data-character_id="{{character2.id}}" data-name="{{character2.name}}" data-character_class="{{character2.character_class}}" data-health="{{character2.bonushealth|add:character2.character_class.health}}" data-strength="{{character2.bonusstrength|add:character2.character_class.strength}}" data-speed="{{character2.bonusspeed|add:character2.character_class.speed}}" data-defense="{{character2.bonusdefense|add:character2.character_class.defense}}" data-dodge="{{character2.bonusdodge|add:character2.character_class.dodge}}" data-block="{{character2.bonusblock|add:character2.character_class.block}}" data-counter="{{character2.bonuscounter|add:character2.character_class.counter}}">
+        <div>
+            <img class="character-image" src="{{character2.image}}" alt="{{character2.name}}">
+            {{character2.name}}
+            <div id="{{character2.id}}">{{character2.bonushealth|add:character2.character_class.health}} Health</div>
+        </div>
+        <div class="spells">
+            {% if character2.spell1 %}
+                <div id="spell_{{character2.spell1.id}}"><img class="spell_image" src="{{character2.spell1.image}}" alt="{{character2.spell1.name}}"></img><p class="spell_text">{{character2.spell1.name}}</p></div>
+            {% endif %}
+            {% if character2.spell2 %}
+                <div id="spell_{{character2.spell2.id}}"><img class="spell_image" src="{{character2.spell2.image}}" alt="{{character2.spell1.name}}"></img><p class="spell_text">{{character2.spell2.name}}</p></div>
+            {% endif %}
+            {% if character2.spell3 %}
+                <div id="spell_{{character2.spell3.id}}"><img class="spell_image" src="{{character2.spell3.image}}" alt="{{character2.spell3.name}}"></img><p class="spell_text">{{character2.spell3.name}}</p></div>
+            {% endif %}
+            {% if character2.spell4 %}
+                <div id="spell_{{character2.spell4.id}}"><img class="spell_image" src="{{character2.spell4.image}}" alt="{{character2.spell4.name}}"></img><p class="spell_text">{{character2.spell4.name}}</p></div>
+            {% endif %}
+            {% if not character2.spell1 and not character2.spell2 and not character2.spell3 and not character2.spell4 %}
+                <div class="empty_spells"><img class="spell_image" src="{{character2.image}}"></img><p class="spell_text">{{character2.name}}</p></div>
+            {% endif %}
+        </div>
     </div>
 
 </div>

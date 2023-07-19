@@ -34,7 +34,7 @@ class CharacterList(TemplateView):
 class CharacterCreate(CreateView):
     model = Character
     # these fields are what the user sees/can input when creating a new character
-    fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'background']
+    fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'bonuscombo', 'spell1', 'spell2', 'spell3', 'spell4', 'background']
     template_name = 'character_create.html'
     success_url = '/'
 
@@ -49,7 +49,7 @@ class CharacterDetail(DetailView):
     
 class CharacterUpdate(UpdateView):
     model = Character
-    fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'background']
+    fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'bonuscombo', 'spell1', 'spell2', 'spell3', 'spell4', 'background']
     template_name = 'character_update.html'
     success_url = '/'
 
@@ -110,7 +110,7 @@ class WeaponList(TemplateView):
 class WeaponCreate(CreateView):
     model = Weapon
     # these fields are what the user sees/can input when creating a new character
-    fields = ['name', 'image', 'strength', 'block', 'counter', 'crit', 'armor_piercing', 'life_steal', 'poison_chance', 'poison_damage', 'background']
+    fields = ['name', 'image', 'strength', 'block', 'counter', 'crit', 'armor_piercing', 'life_steal', 'poison_chance', 'poison_damage', 'combo', 'background']
     template_name = 'weapon_create.html'
     success_url = '/'
 
@@ -125,7 +125,7 @@ class WeaponDetail(DetailView):
     
 class WeaponUpdate(UpdateView):
     model = Weapon
-    fields = ['name', 'image', 'strength', 'block', 'counter', 'crit', 'armor_piercing', 'life_steal', 'poison_chance', 'poison_damage', 'background']
+    fields = ['name', 'image', 'strength', 'block', 'counter', 'crit', 'armor_piercing', 'life_steal', 'poison_chance', 'poison_damage', 'combo', 'background']
     template_name = 'weapon_update.html'
     success_url = '/'
 

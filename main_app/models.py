@@ -25,6 +25,9 @@ class Character_Class(models.Model):
     block = models.IntegerField(default=1, verbose_name="Block Chance")
     # after a successful block you can have a chance to counterattack?
     counter = models.IntegerField(default=1, verbose_name="Counter Chance")
+    
+    # chance to combo and attack again
+    combo = models.IntegerField(default=0, verbose_name="Combo Chance")
 
     # This makes it so you show the name of your object in the admin model page
     def __str__(self):
@@ -56,6 +59,7 @@ class Weapon(models.Model):
     poison_chance = models.IntegerField(default=0, verbose_name="Poison Chance")
     poison_damage = models.IntegerField(default=0, verbose_name="Poison Damage")
     background = models.TextField(max_length=1000, default='', blank=True, verbose_name="Background")
+    combo = models.IntegerField(default=0, verbose_name="Combo Chance")
 
 
     def __str__(self):
@@ -96,6 +100,7 @@ class Character(models.Model):
     bonusdodge = models.IntegerField(default=0, verbose_name='Bonus Dodge Chance')
     bonusblock = models.IntegerField(default=0, verbose_name='Bonus Block Chance')
     bonuscounter = models.IntegerField(default=0, verbose_name='Bonus Counter Chance')
+    bonuscombo = models.IntegerField(default=0, verbose_name='Bonus Combo Chance')
     
     # automatically adds what time they were created at for age purposes
     created_at = models.DateTimeField(auto_now_add=True)
