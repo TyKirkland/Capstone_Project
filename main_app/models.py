@@ -34,13 +34,13 @@ class Character_Class(models.Model):
         return self.name
 
 class Armor(models.Model):
-    name = models.CharField(max_length=25, verbose_name="Armor's Name")
-    image = models.CharField(max_length=250, verbose_name="Image")
-    durability = models.IntegerField(default=0, verbose_name="Armor's Durability")
-    health = models.IntegerField(default=0, verbose_name="Bonus Health")
-    defense = models.IntegerField(default=0, verbose_name="Bonus Defense")
-    magic_defense = models.IntegerField(default=0, verbose_name="Bonus Magic Defense")
-    health_regen = models.IntegerField(default=0, verbose_name="Bonus Health Regeneration")
+    name = models.CharField(max_length=25, verbose_name="Armor's Name", default='', blank=True)
+    image = models.CharField(max_length=250, verbose_name="Image", default=' ', blank=True)
+    durability = models.IntegerField(default=0, verbose_name="Armor's Durability", blank=True)
+    health = models.IntegerField(default=0, verbose_name="Bonus Health", blank=True)
+    defense = models.IntegerField(default=0, verbose_name="Bonus Defense", blank=True)
+    magic_defense = models.IntegerField(default=0, verbose_name="Bonus Magic Defense", blank=True)
+    health_regen = models.IntegerField(default=0, verbose_name="Bonus Health Regeneration", blank=True)
     background = models.TextField(max_length=1000, default='', blank=True, verbose_name="Background")
 
     def __str__(self):
@@ -48,8 +48,8 @@ class Armor(models.Model):
 
 
 class Weapon(models.Model):
-    name = models.CharField(max_length=25, verbose_name="Weapon's Name")
-    image = models.CharField(max_length=250, verbose_name="Image")
+    name = models.CharField(max_length=25, verbose_name="Weapon's Name", default='', blank=True)
+    image = models.CharField(max_length=250, verbose_name="Image", default=' ', blank=True)
     strength = models.IntegerField(default=0, verbose_name="Bonus Strength")
     block = models.IntegerField(default=0, verbose_name="Bonus Block Chance")
     counter = models.IntegerField(default=0, verbose_name="Bonus Counter Chance")
@@ -66,14 +66,14 @@ class Weapon(models.Model):
         return self.name
 
 class Spell(models.Model):
-    name = models.CharField(max_length=25, verbose_name="Spell's Name")
-    image = models.CharField(max_length=250, verbose_name="Image")
+    name = models.CharField(max_length=25, verbose_name="Spell's Name", default='', blank=True)
+    image = models.CharField(max_length=250, verbose_name="Image", default=' ', blank=True)
     description = models.TextField(max_length=1000, default='', blank=True, verbose_name="Description")
     on_use = models.CharField(max_length=100, default='', blank=True, verbose_name="On Use")
-    water_damage = models.IntegerField(default=0, verbose_name="Water Damage")
-    earth_damage = models.IntegerField(default=0, verbose_name="Earth Damage")
-    fire_damage = models.IntegerField(default=0, verbose_name="Fire Damage")
-    air_damage = models.IntegerField(default=0, verbose_name="Air Damage")
+    water_damage = models.IntegerField(default=0, verbose_name="Water Damage", blank=True)
+    earth_damage = models.IntegerField(default=0, verbose_name="Earth Damage", blank=True)
+    fire_damage = models.IntegerField(default=0, verbose_name="Fire Damage", blank=True)
+    air_damage = models.IntegerField(default=0, verbose_name="Air Damage", blank=True)
 
     def __str__(self):
         return self.name
@@ -97,6 +97,7 @@ class Character(models.Model):
     bonusstrength = models.IntegerField(default=0, verbose_name='Bonus Strength')
     bonusspeed = models.IntegerField(default=0, verbose_name='Bonus Speed')
     bonusdefense = models.IntegerField(default=0, verbose_name='Bonus Defense')
+    bonusmagicdefense = models.IntegerField(default=0, verbose_name='Bonus Magic Defense')
     bonusdodge = models.IntegerField(default=0, verbose_name='Bonus Dodge Chance')
     bonusblock = models.IntegerField(default=0, verbose_name='Bonus Block Chance')
     bonuscounter = models.IntegerField(default=0, verbose_name='Bonus Counter Chance')

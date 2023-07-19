@@ -18,6 +18,35 @@ document.addEventListener("DOMContentLoaded", function() {
         this.block = parseFloat(character.dataset.block);
         this.counter = parseFloat(character.dataset.counter);
         this.character_id = parseFloat(character.dataset.character_id);
+        this.spell1_id = parseFloat(character.dataset.spell1_id);
+        this.spell2_id = parseFloat(character.dataset.spell2_id);
+        this.spell3_id = parseFloat(character.dataset.spell3_id);
+        this.spell4_id = parseFloat(character.dataset.spell4_id);
+        this.spell1_on_use = parseFloat(character.dataset.spell1_on_use);
+        this.spell2_on_use = parseFloat(character.dataset.spell2_on_use);
+        this.spell3_on_use = parseFloat(character.dataset.spell3_on_use);
+        this.spell4_on_use = parseFloat(character.dataset.spell4_on_use);
+        this.spell1_name = character.dataset.spell1_name;
+        this.spell2_name = character.dataset.spell2_name;
+        this.spell3_name = character.dataset.spell3_name;
+        this.spell4_name = character.dataset.spell4_name;
+        this.spell1_water_damage = parseFloat(character.dataset.spell1_water_damage);
+        this.spell2_water_damage = parseFloat(character.dataset.spell2_water_damage);
+        this.spell3_water_damage = parseFloat(character.dataset.spell3_water_damage);
+        this.spell4_water_damage = parseFloat(character.dataset.spell4_water_damage);
+        this.spell1_fire_damage = parseFloat(character.dataset.spell1_fire_damage);
+        this.spell2_fire_damage = parseFloat(character.dataset.spell2_fire_damage);
+        this.spell3_fire_damage = parseFloat(character.dataset.spell3_fire_damage);
+        this.spell4_fire_damage = parseFloat(character.dataset.spell4_fire_damage);
+        this.spell1_earth_damage = parseFloat(character.dataset.spell1_earth_damage);
+        this.spell2_earth_damage = parseFloat(character.dataset.spell2_earth_damage);
+        this.spell3_earth_damage = parseFloat(character.dataset.spell3_earth_damage);
+        this.spell4_earth_damage = parseFloat(character.dataset.spell4_earth_damage);
+        this.spell1_air_damage = parseFloat(character.dataset.spell1_air_damage);
+        this.spell2_air_damage = parseFloat(character.dataset.spell2_air_damage);
+        this.spell3_air_damage = parseFloat(character.dataset.spell3_air_damage);
+        this.spell4_air_damage = parseFloat(character.dataset.spell4_air_damage);
+
 
         // methods
         this.attack = function(opponent) {
@@ -301,6 +330,22 @@ document.addEventListener("DOMContentLoaded", function() {
                 battleResultsElement.prepend(br3);
             }
         }
+
+        this.spell_attack = function(opponent){
+            
+            let id = this.id
+            let name = this.name 
+            let on_use = this.on_use
+
+            // offensive numbers
+            let water_damage = getRandomNum(this.water_damage)
+            let earth_damage = getRandomNum(this.earth_damage)
+            let fire_damage = getRandomNum(this.fire_damage)
+            let air_damage = getRandomNum(this.air_damage)
+
+            // defensive numbers
+            let 
+        }
     }
 
     // creating each character based on the elements retrieved from the html file
@@ -314,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let character1Turn = true;
 
-    function handleKeyPress(event){
+    function handleKeyPress(){
         if(character1.health > 0 && character2.health > 0) {
             if(character1Turn === true){ 
                 character1.attack(character2);
@@ -322,6 +367,19 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             else{
                 character2.attack(character1);
+                character1Turn = true;
+            }
+        }
+    }
+
+    function handleSpellPress(spell){
+        if(character1.health > 0 && character2.health > 0) {
+            if(character1Turn === true && spell.target.id.slice(9,10) === "1"){
+                character1.spell_attack(character2);
+                character1Turn = false;
+            }
+            if(character1Turn === false && spell.target.id.slice(9,10) === "2"){
+                character2.spell_attack(character1);
                 character1Turn = true;
             }
         }
@@ -348,14 +406,53 @@ document.addEventListener("DOMContentLoaded", function() {
         //         character1.attack(character2);
         //     }
         document.addEventListener("keydown", handleKeyPress);
+        
+        const character1_spell1 = document.getElementById("character1_spell1");
+        const character1_spell2 = document.getElementById("character1_spell2");
+        const character1_spell3 = document.getElementById("character1_spell3");
+        const character1_spell4 = document.getElementById("character1_spell4");
+
+        const character2_spell1 = document.getElementById("character2_spell1");
+        const character2_spell2 = document.getElementById("character2_spell2");
+        const character2_spell3 = document.getElementById("character2_spell3");
+        const character2_spell4 = document.getElementById("character2_spell4");
+
+        if(character1_spell1){
+            character1_spell1.addEventListener("click", handleSpellPress);
+        }
+        if(character1_spell2){
+            character1_spell2.addEventListener("click", handleSpellPress);
+        }
+        if(character1_spell3){
+            character1_spell3.addEventListener("click", handleSpellPress);
+        }
+        if(character1_spell4){
+            character1_spell4.addEventListener("click", handleSpellPress);
+        }
+
+        if(character2_spell1){
+            character2_spell1.addEventListener("click", handleSpellPress);
+        }
+        if(character2_spell2){
+            character2_spell2.addEventListener("click", handleSpellPress);
+        }
+        if(character2_spell3){
+            character2_spell3.addEventListener("click", handleSpellPress);
+        }
+        if(character2_spell4){
+            character2_spell4.addEventListener("click", handleSpellPress);
+        }
+
+        console.log(character1_spell1.dataset.name)
+        console.log(character1_spell2)
+        console.log(character1Element)
+        console.log(character1_spell4)
     }
         // after the loop completes I need to output the winner here
 
     // this is starting the battle!
     Battle(character1, character2);
 
-    console.log("char1class: " + character1.character_class);
-    console.log("char2health: " + character2.health, character2.strength, character2.speed);
 })
 
 $(".navbar-burger").click(function () {

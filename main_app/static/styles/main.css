@@ -182,11 +182,13 @@ body {
 .spell_image{
   width: 35px;
   height: 35px;
+  pointer-events: none;
 }
 
 .spell_text{
   margin-top: 0px;
   text-align: center;
+  pointer-events: none;
 }
 
 .spells{
@@ -210,6 +212,9 @@ body {
 
 .empty_spells{
   visibility: hidden;
+  width: 35px;
+  height: 35px;
+  pointer-events: none;
 }
 
 /* @media (max-width: 3000px) { 

@@ -34,7 +34,7 @@ class CharacterList(TemplateView):
 class CharacterCreate(CreateView):
     model = Character
     # these fields are what the user sees/can input when creating a new character
-    fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'bonuscombo', 'spell1', 'spell2', 'spell3', 'spell4', 'background']
+    fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusmagicdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'bonuscombo', 'spell1', 'spell2', 'spell3', 'spell4', 'background']
     template_name = 'character_create.html'
     success_url = '/'
 
@@ -49,7 +49,7 @@ class CharacterDetail(DetailView):
     
 class CharacterUpdate(UpdateView):
     model = Character
-    fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'bonuscombo', 'spell1', 'spell2', 'spell3', 'spell4', 'background']
+    fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusmagicdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'bonuscombo', 'spell1', 'spell2', 'spell3', 'spell4', 'background']
     template_name = 'character_update.html'
     success_url = '/'
 
@@ -197,6 +197,43 @@ def testFight(request):
 class CharacterBattle(TemplateView):
     template_name = 'character_battle.html'
 
+    fakeweapon = {
+        'name': '',
+        'image': '',
+        'strength': 0,
+        'block': 0,
+        'counter': 0,
+        'crit': 0,
+        'armor_piercing': 0,
+        'life_steal': 0,
+        'poison_chance': 0,
+        'poison_damage': 0,
+        'combo': 0,
+        'background': '',
+    }
+
+
+    fakearmor = {
+        'name': '',
+        'image': '',
+        'durability': 0,
+        'health': 0,
+        'defense': 0,
+        'magic_defense': 0,
+        'health_regen': 0,
+        'background': '',
+    }
+
+    fakespell = {
+        'name': '',
+        'image': '',
+        'on_use': '',
+        'water_damage': 0,
+        'earth_damage': 0,
+        'fire_damage': 0,
+        'air_damage': 0,
+        'description': '',
+    }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -205,8 +242,43 @@ class CharacterBattle(TemplateView):
         pk2 = [self.kwargs.get('pk2')]
         character1 = Character.objects.filter(id__in=pk)
         character2 = Character.objects.filter(id__in=pk2)
+        print(pk)
         character1 = character1[0]
         character2 = character2[0]
+        
+        fillerWeapon = Weapon.objects.filter(id__in=[11])
+        fillerArmor = Armor.objects.filter(id__in=[4])
+        fillerSpell = Spell.objects.filter(id__in=[2])
+        fillerWeapon = fillerWeapon[0]
+        fillerArmor = fillerArmor[0]
+        fillerSpell = fillerSpell[0]
+
+        if(not character1.weapon):
+            character1.weapon = fillerWeapon
+        if(not character2.weapon):
+            character2.weapon = fillerWeapon
+        if(not character1.armor):
+            character1.armor = fillerArmor
+        if(not character2.armor):
+            character2.armor = fillerArmor
+        if(not character1.spell1):
+            character1.spell1 = fillerSpell
+        if(not character2.spell1):
+            character2.spell1 = fillerSpell
+        if(not character1.spell2):
+            character1.spell2 = fillerSpell
+        if(not character2.spell2):
+            character2.spell2 = fillerSpell
+        if(not character1.spell3):
+            character1.spell3 = fillerSpell
+        if(not character2.spell3):
+            character2.spell3 = fillerSpell
+        if(not character1.spell4):
+            character1.spell4 = fillerSpell
+        if(not character2.spell4):
+            character2.spell4 = fillerSpell
+
+
         context['character1'] = character1
         context['character2'] = character2
         return context
