@@ -212,9 +212,12 @@ body {
 
 .empty_spells{
   visibility: hidden;
-  width: 35px;
-  height: 35px;
   pointer-events: none;
+}
+
+.spell_block{
+  width: 45px;
+  height: 45px;
 }
 
 /* @media (max-width: 3000px) { 

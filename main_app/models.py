@@ -19,6 +19,7 @@ class Character_Class(models.Model):
 
     # starts with 0 defense and goes up when you put on armor?
     defense = models.IntegerField(default=1, verbose_name="Defense")
+    magic_defense = models.IntegerField(default=1, verbose_name="Magic Defense")
 
     # dodge can be 1/100 to successfully evade an attack? goes up based on class later?
     dodge = models.IntegerField(default=1, verbose_name="Dodge Chance")

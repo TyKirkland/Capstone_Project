@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
         this.strength = parseFloat(character.dataset.strength);
         this.speed = parseFloat(character.dataset.speed);
         this.defense = parseFloat(character.dataset.defense);
+        this.magic_defense = parseFloat(character.dataset.magic_defense);
         this.dodge = parseFloat(character.dataset.dodge);
         this.block = parseFloat(character.dataset.block);
         this.counter = parseFloat(character.dataset.counter);
@@ -331,20 +332,44 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        this.spell_attack = function(opponent){
+        this.spell_attack = function(opponent, spell){
+
+            let resultElement1 = document.createElement("li");
+            let resultElement2 = document.createElement("li");
+            let resultElement3 = document.createElement("li");
+            let br1 = document.createElement("br");
+            let br2 = document.createElement("br");
+            let br3 = document.createElement("br");
             
-            let id = this.id
-            let name = this.name 
-            let on_use = this.on_use
+            let spell_id = spell.dataset.spell_id
+            let name = spell.dataset.name
+            let on_use = spell.dataset.on_use
 
             // offensive numbers
-            let water_damage = getRandomNum(this.water_damage)
-            let earth_damage = getRandomNum(this.earth_damage)
-            let fire_damage = getRandomNum(this.fire_damage)
-            let air_damage = getRandomNum(this.air_damage)
+            let water_damage = getRandomNum(parseInt(spell.dataset.water_damage))
+            let earth_damage = getRandomNum(parseInt(spell.dataset.earth_damage))
+            let fire_damage = getRandomNum(parseInt(spell.dataset.fire_damage))
+            let air_damage = getRandomNum(parseInt(spell.dataset.air_damage))
 
             // defensive numbers
-            let 
+            let defenderMagicDefense = parseInt(opponent.magic_defense)
+
+            console.log(resultElement1)
+            resultElement1.textContent = `${this.name} casts ${name}!`;
+            resultElement2.textContent = `${on_use}`
+            resultElement3.textContent = `${opponent.name} takes ${water_damage + earth_damage + fire_damage + air_damage} damage!`;
+            resultElement2.style.color = "plum";
+            resultElement3.style.color = "red";
+            battleResultsElement.prepend(resultElement3);
+            battleResultsElement.prepend(resultElement2);
+            battleResultsElement.prepend(resultElement1);
+            battleResultsElement.prepend(br1);
+            battleResultsElement.prepend(br2);
+            battleResultsElement.prepend(br3);
+
+            console.log(fire_damage)
+            // defensive numbers
+            console.log(spell)
         }
     }
 
@@ -375,11 +400,11 @@ document.addEventListener("DOMContentLoaded", function() {
     function handleSpellPress(spell){
         if(character1.health > 0 && character2.health > 0) {
             if(character1Turn === true && spell.target.id.slice(9,10) === "1"){
-                character1.spell_attack(character2);
+                character1.spell_attack(character2, spell.target);
                 character1Turn = false;
             }
             if(character1Turn === false && spell.target.id.slice(9,10) === "2"){
-                character2.spell_attack(character1);
+                character2.spell_attack(character1, spell.target);
                 character1Turn = true;
             }
         }
