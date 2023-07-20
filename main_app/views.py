@@ -1,4 +1,5 @@
 # importing useful functions
+from django import forms
 from django.shortcuts import render, redirect
 import json
 from django.http import HttpResponse
@@ -31,10 +32,28 @@ class CharacterList(TemplateView):
         context['characters'] = Character.objects.all()
         return context
 
+# this allows me to target the django forms instead of having them automatically created with the fields variable
+class CharacterForm(forms.ModelForm):
+    class Meta:
+        model = Character
+        fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusmagicdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'bonuscombo', 'spell1', 'spell2', 'spell3', 'spell4', 'background']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Customize the queryset for the 'weapon' field to exclude certain models
+        self.fields['weapon'].queryset = Weapon.objects.exclude(id=11)
+        self.fields['armor'].queryset = Armor.objects.exclude(id=4)
+        self.fields['spell1'].queryset = Spell.objects.exclude(id=2)
+        self.fields['spell2'].queryset = Spell.objects.exclude(id=2)
+        self.fields['spell3'].queryset = Spell.objects.exclude(id=2)
+        self.fields['spell4'].queryset = Spell.objects.exclude(id=2)
+
+
 class CharacterCreate(CreateView):
     model = Character
     # these fields are what the user sees/can input when creating a new character
-    fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusmagicdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'bonuscombo', 'spell1', 'spell2', 'spell3', 'spell4', 'background']
+    # fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusmagicdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'bonuscombo', 'spell1', 'spell2', 'spell3', 'spell4', 'background']
+    form_class = CharacterForm
     template_name = 'character_create.html'
     success_url = '/'
 
@@ -47,9 +66,11 @@ class CharacterDetail(DetailView):
         # you can/may need to add context['objectname'] = Objectname.objects.all()
         return context
     
+
 class CharacterUpdate(UpdateView):
     model = Character
-    fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusmagicdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'bonuscombo', 'spell1', 'spell2', 'spell3', 'spell4', 'background']
+    # fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusmagicdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'bonuscombo', 'spell1', 'spell2', 'spell3', 'spell4', 'background']
+    form_class = CharacterForm
     template_name = 'character_update.html'
     success_url = '/'
 
@@ -66,7 +87,8 @@ class ArmorList(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # the characters object will also give you access to the character class model that's related to it
-        context['armors'] = Armor.objects.all()
+        # context['armors'] = Armor.objects.all()
+        context['armors'] = Armor.objects.exclude(id=4)
         return context
 
 class ArmorCreate(CreateView):
@@ -104,7 +126,9 @@ class WeaponList(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # the characters object will also give you access to the character class model that's related to it
-        context['weapons'] = Weapon.objects.all()
+        # context['weapons'] = Weapon.objects.all()
+        # this gives all weapons except the filler weapon!
+        context['weapons'] = Weapon.objects.exclude(id=11)
         return context
 
 class WeaponCreate(CreateView):
@@ -142,7 +166,9 @@ class SpellList(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # the characters object will also give you access to the character class model that's related to it
-        context['spells'] = Spell.objects.all()
+        # context['spells'] = Spell.objects.all()
+        context['spells'] = Spell.objects.exclude(id=2)
+
         return context
 
 class SpellCreate(CreateView):
@@ -197,44 +223,6 @@ def testFight(request):
 class CharacterBattle(TemplateView):
     template_name = 'character_battle.html'
 
-    fakeweapon = {
-        'name': '',
-        'image': '',
-        'strength': 0,
-        'block': 0,
-        'counter': 0,
-        'crit': 0,
-        'armor_piercing': 0,
-        'life_steal': 0,
-        'poison_chance': 0,
-        'poison_damage': 0,
-        'combo': 0,
-        'background': '',
-    }
-
-
-    fakearmor = {
-        'name': '',
-        'image': '',
-        'durability': 0,
-        'health': 0,
-        'defense': 0,
-        'magic_defense': 0,
-        'health_regen': 0,
-        'background': '',
-    }
-
-    fakespell = {
-        'name': '',
-        'image': '',
-        'on_use': '',
-        'water_damage': 0,
-        'earth_damage': 0,
-        'fire_damage': 0,
-        'air_damage': 0,
-        'description': '',
-    }
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -245,7 +233,7 @@ class CharacterBattle(TemplateView):
         print(pk)
         character1 = character1[0]
         character2 = character2[0]
-        
+
         fillerWeapon = Weapon.objects.filter(id__in=[11])
         fillerArmor = Armor.objects.filter(id__in=[4])
         fillerSpell = Spell.objects.filter(id__in=[2])

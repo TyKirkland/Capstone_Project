@@ -17,36 +17,43 @@
             <div id="{{character1.id}}">{{character1.bonushealth|add:character1.character_class.health}} Health</div>
         </div>
         <div class="spells">
-            {% if character1.spell1 and not character1.spell1.id == 2 %}
-                <div id="character1_spell1" class="spell_block" data-spell_id="{{character1.spell1.id}}" data-name="{{character1.spell1.name}}" data-on_use="{{character1.spell1.on_use}}" data-water_damage="{{character1.spell1.water_damage}}" data-earth_damage="{{character1.spell1.earth_damage}}" data-fire_damage="{{character1.spell1.fire_damage}}" data-air_damage="{{character1.spell1.air_damage}}"><img class="spell_image" src="{{character1.spell1.image}}" alt="{{character1.spell1.name}}"></img><p class="spell_text">{{character1.spell1.name}}</p></div>
+            {% if character1.character_class.name == 'Mage' %}
+                {% if character1.spell1 and not character1.spell1.id == 2 %}
+                    <div id="character1_spell1" class="spell_block" data-spell_id="{{character1.spell1.id}}" data-name="{{character1.spell1.name}}" data-on_use="{{character1.spell1.on_use}}" data-water_damage="{{character1.spell1.water_damage}}" data-earth_damage="{{character1.spell1.earth_damage}}" data-fire_damage="{{character1.spell1.fire_damage}}" data-air_damage="{{character1.spell1.air_damage}}"><img class="spell_image" src="{{character1.spell1.image}}" alt="{{character1.spell1.name}}"></img><p class="spell_text">{{character1.spell1.name}}</p></div>
+                {% else %}
+                    <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
+                {% endif %}
+
+                
+                {% if character1.spell2 and not character1.spell2.id == 2 %}
+                    <div id="character1_spell2" class="spell_block" data-spell_id="{{character1.spell2.id}}" data-name="{{character1.spell2.name}}" data-on_use="{{character1.spell2.on_use}}" data-water_damage="{{character1.spell2.water_damage}}" data-earth_damage="{{character1.spell2.earth_damage}}" data-fire_damage="{{character1.spell2.fire_damage}}" data-air_damage="{{character1.spell2.air_damage}}"><img class="spell_image" src="{{character1.spell2.image}}" alt="{{character1.spell2.name}}"></img><p class="spell_text">{{character1.spell2.name}}</p></div>
+                {% else %}
+                    <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
+                {% endif %}
+
+                {% if character1.spell3 and not character1.spell3.id == 2 %}
+                    <div id="character1_spell3" class="spell_block" data-spell_id="{{character1.spell3.id}}" data-name="{{character1.spell3.name}}" data-on_use="{{character1.spell3.on_use}}" data-water_damage="{{character1.spell3.water_damage}}" data-earth_damage="{{character1.spell3.earth_damage}}" data-fire_damage="{{character1.spell3.fire_damage}}" data-air_damage="{{character1.spell3.air_damage}}"><img class="spell_image" src="{{character1.spell3.image}}" alt="{{character1.spell3.name}}"></img><p class="spell_text">{{character1.spell3.name}}</p></div>
+                {% else %}
+                    <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
+                {% endif %}
+
+                {% if character1.spell4 and not character1.spell4.id == 2 %}
+                    <div id="character1_spell4" class="spell_block" data-spell_id="{{character1.spell4.id}}" data-name="{{character1.spell4.name}}" data-on_use="{{character1.spell4.on_use}}" data-water_damage="{{character1.spell4.water_damage}}" data-earth_damage="{{character1.spell4.earth_damage}}" data-fire_damage="{{character1.spell4.fire_damage}}" data-air_damage="{{character1.spell4.air_damage}}"><img class="spell_image" src="{{character1.spell4.image}}" alt="{{character1.spell4.name}}"></img><p class="spell_text">{{character1.spell4.name}}</p></div>
+                {% else %}
+                    <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
+                {% endif %}
+
+                {% if not character1.spell1 and not character1.spell2 and not character1.spell3 and not character1.spell4 %}
+                    <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
+                    <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
+                    <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
+                    <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
+                {% endif %}
             {% else %}
                 <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
-            {% endif %}
-
-            
-            {% if character1.spell2 and not character1.spell2.id == 2 %}
-                <div id="character1_spell2" class="spell_block" data-spell_id="{{character1.spell2.id}}" data-name="{{character1.spell2.name}}" data-on_use="{{character1.spell2.on_use}}" data-water_damage="{{character1.spell2.water_damage}}" data-earth_damage="{{character1.spell2.earth_damage}}" data-fire_damage="{{character1.spell2.fire_damage}}" data-air_damage="{{character1.spell2.air_damage}}"><img class="spell_image" src="{{character1.spell2.image}}" alt="{{character1.spell2.name}}"></img><p class="spell_text">{{character1.spell2.name}}</p></div>
-            {% else %}
                 <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
-            {% endif %}
-
-            {% if character1.spell3 and not character1.spell3.id == 2 %}
-                <div id="character1_spell3" class="spell_block" data-spell_id="{{character1.spell3.id}}" data-name="{{character1.spell3.name}}" data-on_use="{{character1.spell3.on_use}}" data-water_damage="{{character1.spell3.water_damage}}" data-earth_damage="{{character1.spell3.earth_damage}}" data-fire_damage="{{character1.spell3.fire_damage}}" data-air_damage="{{character1.spell3.air_damage}}"><img class="spell_image" src="{{character1.spell3.image}}" alt="{{character1.spell3.name}}"></img><p class="spell_text">{{character1.spell3.name}}</p></div>
-            {% else %}
                 <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
-            {% endif %}
-
-            {% if character1.spell4 and not character1.spell4.id == 2 %}
-                <div id="character1_spell4" class="spell_block" data-spell_id="{{character1.spell4.id}}" data-name="{{character1.spell4.name}}" data-on_use="{{character1.spell4.on_use}}" data-water_damage="{{character1.spell4.water_damage}}" data-earth_damage="{{character1.spell4.earth_damage}}" data-fire_damage="{{character1.spell4.fire_damage}}" data-air_damage="{{character1.spell4.air_damage}}"><img class="spell_image" src="{{character1.spell4.image}}" alt="{{character1.spell4.name}}"></img><p class="spell_text">{{character1.spell4.name}}</p></div>
-            {% else %}
                 <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
-            {% endif %}
-
-            {% if not character1.spell1 and not character1.spell2 and not character1.spell3 and not character1.spell4 %}
-                <div class="empty_spells"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
-                <div class="empty_spells"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
-                <div class="empty_spells"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
-                <div class="empty_spells"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
             {% endif %}
         </div>
     </div>
@@ -60,31 +67,38 @@
             <div id="{{character2.id}}">{{character2.bonushealth|add:character2.character_class.health}} Health</div>
         </div>
         <div class="spells">
-            {% if character2.spell1 and not character2.spell1.id == 2 %}
-                <div id="character2_spell1" class="spell_block" data-spell_id="{{character2.spell1.id}}" data-name="{{character2.spell1.name}}" data-on_use="{{character2.spell1.on_use}}" data-water_damage="{{character2.spell1.water_damage}}" data-earth_damage="{{character2.spell1.earth_damage}}" data-fire_damage="{{character2.spell1.fire_damage}}" data-air_damage="{{character2.spell1.air_damage}}"><img class="spell_image" src="{{character2.spell1.image}}" alt="{{character2.spell1.name}}"></img><p class="spell_text">{{character2.spell1.name}}</p></div>
+            {% if character1.character_class.name == 'Mage' %}
+                {% if character2.spell1 and not character2.spell1.id == 2 %}
+                    <div id="character2_spell1" class="spell_block" data-spell_id="{{character2.spell1.id}}" data-name="{{character2.spell1.name}}" data-on_use="{{character2.spell1.on_use}}" data-water_damage="{{character2.spell1.water_damage}}" data-earth_damage="{{character2.spell1.earth_damage}}" data-fire_damage="{{character2.spell1.fire_damage}}" data-air_damage="{{character2.spell1.air_damage}}"><img class="spell_image" src="{{character2.spell1.image}}" alt="{{character2.spell1.name}}"></img><p class="spell_text">{{character2.spell1.name}}</p></div>
+                {% else %}
+                    <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
+                {% endif %}
+                {% if character2.spell2 and not character2.spell2.id == 2 %}
+                    <div id="character2_spell2" class="spell_block" data-spell_id="{{character2.spell2.id}}" data-name="{{character2.spell2.name}}" data-on_use="{{character2.spell2.on_use}}" data-water_damage="{{character2.spell2.water_damage}}" data-earth_damage="{{character2.spell2.earth_damage}}" data-fire_damage="{{character2.spell2.fire_damage}}" data-air_damage="{{character2.spell2.air_damage}}"><img class="spell_image" src="{{character2.spell2.image}}" alt="{{character2.spell2.name}}"></img><p class="spell_text">{{character2.spell2.name}}</p></div>
+                {% else %}
+                    <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
+                {% endif %}
+                {% if character2.spell3 and not character2.spell3.id == 2 %}
+                    <div id="character2_spell3" class="spell_block" data-spell_id="{{character2.spell3.id}}" data-name="{{character2.spell3.name}}" data-on_use="{{character2.spell3.on_use}}" data-water_damage="{{character2.spell3.water_damage}}" data-earth_damage="{{character2.spell3.earth_damage}}" data-fire_damage="{{character2.spell3.fire_damage}}" data-air_damage="{{character2.spell3.air_damage}}"><img class="spell_image" src="{{character2.spell3.image}}" alt="{{character2.spell3.name}}"></img><p class="spell_text">{{character2.spell3.name}}</p></div>
+                {% else %}
+                    <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
+                {% endif %}
+                {% if character2.spell4 and not character2.spell4.id == 2 %}
+                    <div id="character2_spell4" class="spell_block" data-spell_id="{{character2.spell4.id}}" data-name="{{character2.spell4.name}}" data-on_use="{{character2.spell4.on_use}}" data-water_damage="{{character2.spell4.water_damage}}" data-earth_damage="{{character2.spell4.earth_damage}}" data-fire_damage="{{character2.spell4.fire_damage}}" data-air_damage="{{character2.spell4.air_damage}}"><img class="spell_image" src="{{character2.spell4.image}}" alt="{{character2.spell4.name}}"></img><p class="spell_text">{{character2.spell4.name}}</p></div>
+                {% else %}
+                    <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
+                {% endif %}
+                {% if not character2.spell1 and not character2.spell2 and not character2.spell3 and not character2.spell4 %}
+                    <div class="empty_spells"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
+                    <div class="empty_spells"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
+                    <div class="empty_spells"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
+                    <div class="empty_spells"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
+                {% endif %}
             {% else %}
                 <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
-            {% endif %}
-            {% if character2.spell2 and not character2.spell2.id == 2 %}
-                <div id="character2_spell2" class="spell_block" data-spell_id="{{character2.spell2.id}}" data-name="{{character2.spell2.name}}" data-on_use="{{character2.spell2.on_use}}" data-water_damage="{{character2.spell2.water_damage}}" data-earth_damage="{{character2.spell2.earth_damage}}" data-fire_damage="{{character2.spell2.fire_damage}}" data-air_damage="{{character2.spell2.air_damage}}"><img class="spell_image" src="{{character2.spell2.image}}" alt="{{character2.spell2.name}}"></img><p class="spell_text">{{character2.spell2.name}}</p></div>
-            {% else %}
                 <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
-            {% endif %}
-            {% if character2.spell3 and not character2.spell3.id == 2 %}
-                <div id="character2_spell3" class="spell_block" data-spell_id="{{character2.spell3.id}}" data-name="{{character2.spell3.name}}" data-on_use="{{character2.spell3.on_use}}" data-water_damage="{{character2.spell3.water_damage}}" data-earth_damage="{{character2.spell3.earth_damage}}" data-fire_damage="{{character2.spell3.fire_damage}}" data-air_damage="{{character2.spell3.air_damage}}"><img class="spell_image" src="{{character2.spell3.image}}" alt="{{character2.spell3.name}}"></img><p class="spell_text">{{character2.spell3.name}}</p></div>
-            {% else %}
                 <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
-            {% endif %}
-            {% if character2.spell4 and not character2.spell4.id == 2 %}
-                <div id="character2_spell4" class="spell_block" data-spell_id="{{character2.spell4.id}}" data-name="{{character2.spell4.name}}" data-on_use="{{character2.spell4.on_use}}" data-water_damage="{{character2.spell4.water_damage}}" data-earth_damage="{{character2.spell4.earth_damage}}" data-fire_damage="{{character2.spell4.fire_damage}}" data-air_damage="{{character2.spell4.air_damage}}"><img class="spell_image" src="{{character2.spell4.image}}" alt="{{character2.spell4.name}}"></img><p class="spell_text">{{character2.spell4.name}}</p></div>
-            {% else %}
                 <div class="empty_spells spell_block"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
-            {% endif %}
-            {% if not character2.spell1 and not character2.spell2 and not character2.spell3 and not character2.spell4 %}
-                <div class="empty_spells"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
-                <div class="empty_spells"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
-                <div class="empty_spells"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
-                <div class="empty_spells"><img class="spell_image" src="{{character2.image}}" alt="{{character2.name}}"></img><p class="spell_text">{{character2.name}}</p></div>
             {% endif %}
         </div>
     </div>

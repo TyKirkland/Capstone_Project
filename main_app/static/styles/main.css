@@ -213,6 +213,8 @@ body {
 .empty_spells{
   visibility: hidden;
   pointer-events: none;
+  width: 45px;
+  height: 45px;
 }
 
 .spell_block{
