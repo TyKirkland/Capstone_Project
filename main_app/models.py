@@ -40,6 +40,7 @@ class Armor(models.Model):
     durability = models.IntegerField(default=0, verbose_name="Armor's Durability", blank=True)
     health = models.IntegerField(default=0, verbose_name="Bonus Health", blank=True)
     defense = models.IntegerField(default=0, verbose_name="Bonus Defense", blank=True)
+    dodge = models.IntegerField(default=0, verbose_name="Bonus Dodge Chance", blank=True)
     magic_defense = models.IntegerField(default=0, verbose_name="Bonus Magic Defense", blank=True)
     health_regen = models.IntegerField(default=0, verbose_name="Bonus Health Regeneration", blank=True)
     background = models.TextField(max_length=1000, default='', blank=True, verbose_name="Background")

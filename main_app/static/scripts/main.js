@@ -10,15 +10,25 @@ document.addEventListener("DOMContentLoaded", function() {
         // attributes
         this.name = character.dataset.name;
         this.character_class = character.dataset.character_class;
-        this.health = parseFloat(character.dataset.health);
+        this.character_id = parseFloat(character.dataset.character_id);
+
         this.strength = parseFloat(character.dataset.strength);
         this.speed = parseFloat(character.dataset.speed);
+        this.counter = parseFloat(character.dataset.counter);
+        this.crit = parseFloat(character.dataset.crit);
+        this.armor_piercing = parseFloat(character.dataset.armor_piercing);
+        this.life_steal = parseFloat(character.dataset.life_steal);
+        this.poison_chance = parseFloat(character.dataset.poison_chance);
+        this.poison_damage = parseFloat(character.dataset.poison_damage);
+        this.combo = parseFloat(character.dataset.combo);
+
+        this.health = parseFloat(character.dataset.health);
         this.defense = parseFloat(character.dataset.defense);
         this.magic_defense = parseFloat(character.dataset.magic_defense);
         this.dodge = parseFloat(character.dataset.dodge);
         this.block = parseFloat(character.dataset.block);
-        this.counter = parseFloat(character.dataset.counter);
-        this.character_id = parseFloat(character.dataset.character_id);
+        this.health_regen = parseFloat(character.dataset.health_regen);
+
         this.spell1_id = parseFloat(character.dataset.spell1_id);
         this.spell2_id = parseFloat(character.dataset.spell2_id);
         this.spell3_id = parseFloat(character.dataset.spell3_id);
@@ -50,8 +60,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
         // methods
+        // this is where each instance of an attack will take place, gets repeated on a loop in the battle function until there is one winner
         this.attack = function(opponent) {
-            // this is where each instance of an attack will take place, gets repeated on a loop in the battle function until there is one winner
 
             let resultElement1 = document.createElement("li");
             let resultElement2 = document.createElement("li");
@@ -59,10 +69,6 @@ document.addEventListener("DOMContentLoaded", function() {
             let br = document.createElement("br");
             let br2 = document.createElement("br");
             let br3 = document.createElement("br");
-
-            // resultElement2.textContent = 'Success part 2';
-
-            // battleResultsElement.appendChild(resultElement2);
 
             let attackerHealthElement = document.getElementById(this.character_id);
             let defenderHealthElement = document.getElementById(opponent.character_id);
@@ -86,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function() {
             let attackerBlockChance = this.block / 100;
             let attackerCounterChance = this.counter / 100;
 
-            console.log("dodge: "+defenderDodgeChance)
 
             if (defenderBlockChance >= Math.random()) {
                 const blockStatements = [
@@ -148,7 +153,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             else if (defenderDodgeChance >= Math.random()) {
-                console.log(defenderDodgeChance)
                 const attackStatements = [
                     `${this.name} launches a powerful attack at ${opponent.name}!`,
                     `${this.name} strikes swiftly and forcefully at ${opponent.name}!`,
@@ -367,9 +371,6 @@ document.addEventListener("DOMContentLoaded", function() {
             battleResultsElement.prepend(br2);
             battleResultsElement.prepend(br3);
 
-            console.log(fire_damage)
-            // defensive numbers
-            console.log(spell)
         }
     }
 

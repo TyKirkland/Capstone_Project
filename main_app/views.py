@@ -94,7 +94,7 @@ class ArmorList(TemplateView):
 class ArmorCreate(CreateView):
     model = Armor
     # these fields are what the user sees/can input when creating a new character
-    fields = ['name', 'image', 'durability', 'health', 'defense', 'magic_defense', 'health_regen', 'background']
+    fields = ['name', 'image', 'durability', 'health', 'defense', 'magic_defense', 'health_regen', 'dodge', 'background']
     template_name = 'armor_create.html'
     success_url = '/'
 
@@ -109,7 +109,7 @@ class ArmorDetail(DetailView):
     
 class ArmorUpdate(UpdateView):
     model = Armor
-    fields = ['name', 'image', 'durability', 'health', 'defense', 'magic_defense', 'health_regen', 'background']
+    fields = ['name', 'image', 'durability', 'health', 'defense', 'magic_defense', 'health_regen', 'dodge', 'background']
     template_name = 'armor_update.html'
     success_url = '/'
 
