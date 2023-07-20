@@ -20,14 +20,18 @@ document.addEventListener("DOMContentLoaded", function() {
         this.life_steal = parseFloat(character.dataset.life_steal);
         this.poison_chance = parseFloat(character.dataset.poison_chance);
         this.poison_damage = parseFloat(character.dataset.poison_damage);
+        this.poisoned = false;
         this.combo = parseFloat(character.dataset.combo);
+        this.combo_turn = false;
 
         this.health = parseFloat(character.dataset.health);
+        this.max_health = parseFloat(character.dataset.health);
         this.defense = parseFloat(character.dataset.defense);
         this.magic_defense = parseFloat(character.dataset.magic_defense);
         this.dodge = parseFloat(character.dataset.dodge);
         this.block = parseFloat(character.dataset.block);
         this.health_regen = parseFloat(character.dataset.health_regen);
+        this.turn_counter = 0;
 
         this.spell1_id = parseFloat(character.dataset.spell1_id);
         this.spell2_id = parseFloat(character.dataset.spell2_id);
@@ -68,34 +72,145 @@ document.addEventListener("DOMContentLoaded", function() {
             let resultElement1 = document.createElement("li");
             let resultElement2 = document.createElement("li");
             let resultElement3 = document.createElement("li");
+            let resultElement4 = document.createElement("li");
+            let healthRegenElement = document.createElement("li");
+            let poisonElement = document.createElement("li");
+            let victoryElement = document.createElement("li");
+            healthRegenElement.style.color = "yellow";
+            poisonElement.style.color = "green";
             let br = document.createElement("br");
             let br2 = document.createElement("br");
             let br3 = document.createElement("br");
+            let br4 = document.createElement("br");
+            let br5 = document.createElement("br");
 
             let attackerHealthElement = document.getElementById(this.character_id);
             let defenderHealthElement = document.getElementById(opponent.character_id);
             
-            let attackerStrength = getRandomNum(this.strength);
-            let attackerDefense = getRandomNum(this.defense);
+            // storing all the stat variables so I can use them/access them easily
             let defenderStrength = getRandomNum(opponent.strength);
+            let defenderCounterChance = opponent.counter / 100;
+            let defenderCritChance = opponent.crit / 100;
+            let defenderArmorPiercingChance = opponent.armor_piercing / 100;
+            let defenderLifeSteal = opponent.life_steal / 100;
+            let defenderPoisonChance = opponent.poison_chance / 100;
+            let defenderPoisonDamage = opponent.poison_damage;
+            let defenderComboChance = opponent.combo / 100;
+
             let defenderDefense = getRandomNum(opponent.defense);
-
-            let damage = attackerStrength - defenderDefense;
-
-            if(damage < 0){
-                // sets negative damage to 0
-                damage = 0;
-            }
-
             let defenderDodgeChance = opponent.dodge / 100;
             let defenderBlockChance = opponent.block / 100;
-            let defenderCounterChance = opponent.counter / 100;
+            let defenderHealthRegen = opponent.health_regen;
+            
+            // remember you need to target the health attribute directly so it updates in each model
+
+            let attackerStrength = getRandomNum(this.strength);
+            let attackerCounterChance = this.counter / 100;
+            let attackerCritChance = this.crit / 100;
+            let attackerArmorPiercingChance = this.armor_piercing / 100;
+            let attackerLifeSteal = this.life_steal / 100;
+            let attackerPoisonChance = this.poison_chance / 100;
+            let attackerPoisonDamage = this.poison_damage;
+            let attackerComboChance = this.combo / 100;
+            
+            let attackerDefense = getRandomNum(this.defense);
             let attackerDodgeChance = this.dodge / 100;
             let attackerBlockChance = this.block / 100;
-            let attackerCounterChance = this.counter / 100;
+            let attackerHealthRegen = this.health_regen;
+
+            let attackerDamage = attackerStrength - defenderDefense;
+            let defenderDamage = defenderStrength - attackerDefense;
+
+            let attackerCritDamage = attackerDamage * 2;
+            let defenderCritDamage = defenderDamage * 2;
+
+            let attackerLifeStealAmount = attackerDamage * attackerLifeSteal;
+            let defenderLifeStealAmount = defenderDamage * defenderLifeSteal;
+
+            let defenderCritLifeStealAmount = defenderCritDamage * defenderLifeSteal;
+            let attackerCritLifeStealAmount = attackerCritDamage * attackerLifeSteal;
 
 
-            if (defenderBlockChance >= Math.random()) {
+
+            // sets negative damage to 0
+            if(attackerDamage < 0){
+                attackerDamage = 0;
+            }
+            if(defenderDamage < 0){
+                defenderDamage = 0;
+            }
+
+            // Here is where the logic starts!
+
+            // implimenting health regen functionality, 15% chance to activate
+            // also doesn't get activated on a combo turn
+            if(.15 > Math.random() && this.combo_turn == false && this.health !== this.max_health){
+                this.health = this.health + this.health_regen;
+                // make sure not to surpass max health!
+                if(this.health > this.max_health){
+                    this.health = this.max_health;
+                }
+                attackerHealthElement.textContent = `${this.health} Health`;
+                healthRegenElement.textContent = `${this.name} regenerated ${this.health_regen} Health`;
+                battleResultsElement.prepend(healthRegenElement)
+            }
+
+            // make sure to regen first and then apply the poison damage
+            // poisoned character gets ticked at the start of his turn after he has a chance to regen health
+            if(this.poisoned == false){
+                this.health = this.health - opponent.poison_damage;
+                attackerHealthElement.textContent = `${this.health} Health`;
+                if(this.health <= 0){
+                    // outputting different messages depending on if they hit the health regen chance as well
+                    if(healthRegenElement.textContent == ""){
+                        poisonElement.textContent = `${this.name} takes ${opponent.poison_damage} damage from poison!`;
+                        resultElement1.textContent = `${this.name} succumbs from the poison's influence.`
+                        battleResultsElement.prepend(resultElement1);
+                        resultElement1.style.color = "red";
+                        battleResultsElement.prepend(poisonElement);
+                        battleResultsElement.prepend(br);
+                        battleResultsElement.prepend(br2);
+                        victoryElement.textContent = `${opponent.name} Wins!!!`;
+                        battleResultsElement.prepend(victoryElement);
+                        battleResultsElement.prepend(br3);
+                        battleResultsElement.prepend(br4);
+                        battleResultsElement.prepend(br5);
+                        return;
+                    }
+                }
+            }
+
+
+
+            if (defenderDodgeChance >= Math.random()) {
+                const attackStatements = [
+                    `${this.name} launches a powerful attack at ${opponent.name}!`,
+                    `${this.name} strikes swiftly and forcefully at ${opponent.name}!`,
+                    `${this.name} tries for a solid blow to ${opponent.name}!`,
+                    `With determination, ${this.name} swings forward to strike ${opponent.name}!`,
+                    `Taking aim, ${this.name} unleashes an attack on ${opponent.name}!`,
+                ];
+
+                const dodgeStatements = [
+                  `${opponent.name} gracefully dodges ${this.name}'s attack, evading it with finesse!`,
+                  `${opponent.name} displays remarkable agility as they effortlessly dodge ${this.name}'s incoming strike!`,
+                  `With incredible reflexes, ${opponent.name} sidesteps ${this.name}'s attack, narrowly avoiding any harm!`,
+                  `In a display of acrobatic skill, ${opponent.name} somersaults away, skillfully dodging ${this.name}'s attack!`,
+                  `${opponent.name} anticipates the attack and swiftly moves out of harm's way, leaving ${this.name} frustrated!`,
+                ];
+                
+                const randomDodgeStatement = dodgeStatements[Math.floor(Math.random() * dodgeStatements.length)];
+                const randomAttackStatement = attackStatements[Math.floor(Math.random() * attackStatements.length)];
+
+                resultElement1.textContent = randomAttackStatement;
+                resultElement2.textContent = randomDodgeStatement;
+                resultElement2.style.color = "cyan";
+                battleResultsElement.prepend(resultElement2);
+                battleResultsElement.prepend(resultElement1);
+                battleResultsElement.prepend(br, br2, br3);
+            }
+
+            else if (defenderBlockChance >= Math.random()) {
                 const blockStatements = [
                     `${opponent.name} skillfully blocks the attack completely and nullifies the damage!`,
                     `${opponent.name} raises their shield just in time, blocking the attack and leaving ${this.name} surprised!`,
@@ -154,33 +269,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 
             }
 
-            else if (defenderDodgeChance >= Math.random()) {
-                const attackStatements = [
-                    `${this.name} launches a powerful attack at ${opponent.name}!`,
-                    `${this.name} strikes swiftly and forcefully at ${opponent.name}!`,
-                    `${this.name} tries for a solid blow to ${opponent.name}!`,
-                    `With determination, ${this.name} swings forward to strike ${opponent.name}!`,
-                    `Taking aim, ${this.name} unleashes an attack on ${opponent.name}!`,
-                ];
-
-                const dodgeStatements = [
-                  `${opponent.name} gracefully dodges ${this.name}'s attack, evading it with finesse!`,
-                  `${opponent.name} displays remarkable agility as they effortlessly dodge ${this.name}'s incoming strike!`,
-                  `With incredible reflexes, ${opponent.name} sidesteps ${this.name}'s attack, narrowly avoiding any harm!`,
-                  `In a display of acrobatic skill, ${opponent.name} somersaults away, skillfully dodging ${this.name}'s attack!`,
-                  `${opponent.name} anticipates the attack and swiftly moves out of harm's way, leaving ${this.name} frustrated!`,
-                ];
-                
-                const randomDodgeStatement = dodgeStatements[Math.floor(Math.random() * dodgeStatements.length)];
-                const randomAttackStatement = attackStatements[Math.floor(Math.random() * attackStatements.length)];
-
-                resultElement1.textContent = randomAttackStatement;
-                resultElement2.textContent = randomDodgeStatement;
-                resultElement2.style.color = "cyan";
-                battleResultsElement.prepend(resultElement2);
-                battleResultsElement.prepend(resultElement1);
-                battleResultsElement.prepend(br, br2, br3);
-            }
             
             else if(damage > 0){
 

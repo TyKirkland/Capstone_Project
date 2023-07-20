@@ -14,7 +14,7 @@
         <div class="">
             <img class="character-image" src="{{character1.image}}" alt="{{character1.name}}">
             {{character1.name}}
-            <div id="{{character1.id}}">{{character1.bonushealth|add:character1.character_class.health}} Health</div>
+            <div id="{{character1.id}}">{{character1.bonushealth|add:character1.character_class.health|add:character1.armor.health}} Health</div>
         </div>
         <div class="spells">
             {% if character1.character_class.name == 'Mage' %}
@@ -64,7 +64,7 @@
         <div>
             <img class="character-image" src="{{character2.image}}" alt="{{character2.name}}">
             {{character2.name}}
-            <div id="{{character2.id}}">{{character2.bonushealth|add:character2.character_class.health}} Health</div>
+            <div id="{{character2.id}}">{{character2.bonushealth|add:character2.character_class.health|add:character2.armor.health}} Health</div>
         </div>
         <div class="spells">
             {% if character1.character_class.name == 'Mage' %}
