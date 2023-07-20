@@ -33,10 +33,10 @@ document.addEventListener("DOMContentLoaded", function() {
         this.spell2_id = parseFloat(character.dataset.spell2_id);
         this.spell3_id = parseFloat(character.dataset.spell3_id);
         this.spell4_id = parseFloat(character.dataset.spell4_id);
-        this.spell1_on_use = parseFloat(character.dataset.spell1_on_use);
-        this.spell2_on_use = parseFloat(character.dataset.spell2_on_use);
-        this.spell3_on_use = parseFloat(character.dataset.spell3_on_use);
-        this.spell4_on_use = parseFloat(character.dataset.spell4_on_use);
+        this.spell1_on_use = character.dataset.spell1_on_use;
+        this.spell2_on_use = character.dataset.spell2_on_use;
+        this.spell3_on_use = character.dataset.spell3_on_use;
+        this.spell4_on_use = character.dataset.spell4_on_use;
         this.spell1_name = character.dataset.spell1_name;
         this.spell2_name = character.dataset.spell2_name;
         this.spell3_name = character.dataset.spell3_name;
@@ -62,6 +62,8 @@ document.addEventListener("DOMContentLoaded", function() {
         // methods
         // this is where each instance of an attack will take place, gets repeated on a loop in the battle function until there is one winner
         this.attack = function(opponent) {
+
+            console.log(this)
 
             let resultElement1 = document.createElement("li");
             let resultElement2 = document.createElement("li");
