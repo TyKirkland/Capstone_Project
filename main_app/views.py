@@ -55,7 +55,7 @@ class CharacterCreate(CreateView):
     # fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusmagicdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'bonuscombo', 'spell1', 'spell2', 'spell3', 'spell4', 'background']
     form_class = CharacterForm
     template_name = 'character_create.html'
-    success_url = '/'
+    success_url = '/characters'
 
 class CharacterDetail(DetailView):
     model = Character
@@ -72,13 +72,13 @@ class CharacterUpdate(UpdateView):
     # fields = ['name', 'image', 'character_class', 'weapon', 'armor', 'bonushealth', 'bonusstrength', 'bonusspeed', 'bonusdefense', 'bonusmagicdefense', 'bonusdodge', 'bonusblock', 'bonuscounter', 'bonuscombo', 'spell1', 'spell2', 'spell3', 'spell4', 'background']
     form_class = CharacterForm
     template_name = 'character_update.html'
-    success_url = '/'
+    success_url = '/characters'
 
 class CharacterDelete(DeleteView):
 
     model = Character
     template_name = 'character_delete_confirmation.html'
-    success_url = '/'
+    success_url = '/characters'
 
 class ArmorList(TemplateView):
     
@@ -96,7 +96,7 @@ class ArmorCreate(CreateView):
     # these fields are what the user sees/can input when creating a new character
     fields = ['name', 'image', 'durability', 'health', 'defense', 'magic_defense', 'health_regen', 'dodge', 'background']
     template_name = 'armor_create.html'
-    success_url = '/'
+    success_url = '/armor'
 
 class ArmorDetail(DetailView):
     model = Armor
@@ -111,13 +111,13 @@ class ArmorUpdate(UpdateView):
     model = Armor
     fields = ['name', 'image', 'durability', 'health', 'defense', 'magic_defense', 'health_regen', 'dodge', 'background']
     template_name = 'armor_update.html'
-    success_url = '/'
+    success_url = '/armor'
 
 class ArmorDelete(DeleteView):
 
     model = Armor
     template_name = 'armor_delete_confirmation.html'
-    success_url = '/'
+    success_url = '/armor'
 
 class WeaponList(TemplateView):
     
@@ -136,7 +136,7 @@ class WeaponCreate(CreateView):
     # these fields are what the user sees/can input when creating a new character
     fields = ['name', 'image', 'strength', 'block', 'counter', 'crit', 'armor_piercing', 'life_steal', 'poison_chance', 'poison_damage', 'combo', 'background']
     template_name = 'weapon_create.html'
-    success_url = '/'
+    success_url = '/weapons'
 
 class WeaponDetail(DetailView):
     model = Weapon
@@ -151,13 +151,13 @@ class WeaponUpdate(UpdateView):
     model = Weapon
     fields = ['name', 'image', 'strength', 'block', 'counter', 'crit', 'armor_piercing', 'life_steal', 'poison_chance', 'poison_damage', 'combo', 'background']
     template_name = 'weapon_update.html'
-    success_url = '/'
+    success_url = '/weapons'
 
 class WeaponDelete(DeleteView):
 
     model = Weapon
     template_name = 'weapon_delete_confirmation.html'
-    success_url = '/'
+    success_url = '/weapons'
     
 class SpellList(TemplateView):
     
@@ -176,7 +176,7 @@ class SpellCreate(CreateView):
     # these fields are what the user sees/can input when creating a new character
     fields = ['name', 'image', 'on_use', 'water_damage', 'earth_damage', 'fire_damage', 'air_damage', 'description']
     template_name = 'spell_create.html'
-    success_url = '/'
+    success_url = '/spells'
 
 class SpellDetail(DetailView):
     model = Spell
@@ -191,13 +191,13 @@ class SpellUpdate(UpdateView):
     model = Spell
     fields = ['name', 'image', 'on_use', 'water_damage', 'earth_damage', 'fire_damage', 'air_damage', 'description']
     template_name = 'spell_update.html'
-    success_url = '/'
+    success_url = '/spells'
 
 class SpellDelete(DeleteView):
 
     model = Spell
     template_name = 'spell_delete_confirmation.html'
-    success_url = '/'
+    success_url = '/spells'
 
 
 class CharacterFight(TemplateView):

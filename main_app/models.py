@@ -43,7 +43,7 @@ class Armor(models.Model):
     dodge = models.IntegerField(default=0, verbose_name="Bonus Dodge Chance", blank=True)
     magic_defense = models.IntegerField(default=0, verbose_name="Bonus Magic Defense", blank=True)
     health_regen = models.IntegerField(default=0, verbose_name="Bonus Health Regeneration", blank=True)
-    background = models.TextField(max_length=1000, default='', blank=True, verbose_name="Background")
+    background = models.CharField(max_length=1000, default='', blank=True, verbose_name="Background")
 
     def __str__(self):
         return self.name
@@ -60,7 +60,7 @@ class Weapon(models.Model):
     life_steal = models.IntegerField(default=0, verbose_name="Life Steal")
     poison_chance = models.IntegerField(default=0, verbose_name="Poison Chance")
     poison_damage = models.IntegerField(default=0, verbose_name="Poison Damage")
-    background = models.TextField(max_length=1000, default='', blank=True, verbose_name="Background")
+    background = models.CharField(max_length=1000, default='', blank=True, verbose_name="Background")
     combo = models.IntegerField(default=0, verbose_name="Combo Chance")
 
 
@@ -70,7 +70,7 @@ class Weapon(models.Model):
 class Spell(models.Model):
     name = models.CharField(max_length=25, verbose_name="Spell's Name", default='', blank=True)
     image = models.CharField(max_length=250, verbose_name="Image", default=' ', blank=True)
-    description = models.TextField(max_length=1000, default='', blank=True, verbose_name="Description")
+    description = models.CharField(max_length=1000, default='', blank=True, verbose_name="Description")
     on_use = models.CharField(max_length=100, default='', blank=True, verbose_name="On Use")
     water_damage = models.IntegerField(default=0, verbose_name="Water Damage", blank=True)
     earth_damage = models.IntegerField(default=0, verbose_name="Earth Damage", blank=True)
@@ -86,7 +86,7 @@ class Character(models.Model):
     # for now I'm going to allow the user to input their own image but I probably want to only allow them to choose from a few set ones per class?
     image = models.CharField(max_length=250, verbose_name="Image")
     character_class = models.ForeignKey(Character_Class, on_delete=models.CASCADE, related_name="character_class", verbose_name="Character Class")
-    background = models.TextField(max_length=1000, default='', blank=True, verbose_name="Background")
+    background = models.CharField(max_length=1000, default='', blank=True, verbose_name="Background")
 
     spell1 = models.ForeignKey(Spell, default=None, on_delete=models.SET_NULL, related_name="spell1", null=True, blank=True, verbose_name="Spell 1")
     spell2 = models.ForeignKey(Spell, default=None, on_delete=models.SET_NULL, related_name="spell2", null=True, blank=True, verbose_name="Spell 2")

@@ -252,6 +252,15 @@ body {
   border-color: black;
 }
 
+.createtitle{
+  margin-bottom: 0px !important;
+}
+
+.submitbutton{
+  height: 100%;
+  width: 100%;
+}
+
 .centered{
   display: flex;
   justify-content: center; /* Center horizontally */
@@ -303,6 +312,26 @@ body {
 .spell_block{
   width: 45px;
   height: 45px;
+}
+
+.formcontainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.formcontent{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.title{
+  font-size: 28px !important;
 }
 
 /* @media (max-width: 3000px) { 

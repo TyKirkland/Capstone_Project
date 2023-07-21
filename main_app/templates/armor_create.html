@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<h1>Create Armor!</h1>
-<form method = "post">
-    {% csrf_token %}
-
-    {{form.as_p}}
-
-    <input type="submit" value="Submit" />
-</form>
+<div class="centered formcontainer">
+    <h1 class="title pt-5">Create Armor!</h1>
+    <form class="formcontent" method = "post">
+        {% csrf_token %}
+    
+        {{form.as_p}}
+    
+        <div class="buttons">
+            <input class="button is-danger" type="submit" value="Confirm" />
+            <a href="{% url 'armor_list' %}" class="button is-info">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
 
 {% endblock %}
