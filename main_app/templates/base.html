@@ -23,7 +23,7 @@
   <body>
     <nav class="navbar navbarcolor" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="/"><img src="{% static 'images/BattleArenaSmallLogo.png' %}" alt="Battle Arena"></a>
+        <a class="navbar-item homebutton" href="/"><img src="{% static 'images/BattleArenaSmallLogo.png' %}" alt="Battle Arena"></a>
         <a
         role="button"
         class="navbar-burger"
@@ -36,7 +36,7 @@
       </a>
     </div>
     <div class="navbar-menu navbar-end">
-      <a class="navbar-item" href="{% url 'character_fight' %}">FIGHT!</a>
+      <a class="navbar-item fightbutton" href="{% url 'character_fight' %}">FIGHT!</a>
     </div>
     </nav>
     <div class="container">{% block content %}{% endblock %}</div>

@@ -36,17 +36,33 @@ body {
   .gallery {
     transition: 0.1s linear;
     place-items: center;
+    margin-top: 40px !important;
   }
 
   .card {
     transition: 0.1s linear;
+    border: 1px solid white !important;
+    background-color: rgb(68, 53, 65);
     width: 250px
   }
   
   .gallery .card:hover {
     transform: scale(1.1);
     z-index: 10;
+    border: 1px solid white !important;
   }
+
+.cardheaderbackground{
+  background-color: rgb(34, 25, 33) !important;
+  border: 1px solid white !important;
+  border-left: 0px !important;
+  border-right: 0px !important;
+  border-bottom: 0px !important;
+}
+
+.cardtitle{
+  color: white;
+}
   
   p {
     font-size: 12px;
@@ -54,17 +70,17 @@ body {
   
   .detail__img {
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
+    top: 45px;
+    width: 500px;
     height: 500px;
-    background-color: #ffffff;
+    background-color: rgb(68, 53, 65);
     overflow: hidden;
+    border-radius: 5px;
   }
   
   .detail__img::after {
     content: "";
-    background-image: linear-gradient(transparent 60%, #1f1f1f);
+    background-image: linear-gradient(transparent 60%, rgb(34,25,33));
     position: absolute;
     top: 0;
     left: 0;
@@ -83,30 +99,63 @@ body {
   .detail__name {
     position: absolute;
     z-index: 5;
-    top: 400px;
+    top: 495px;
+    pointer-events: none;
   }
   
   .detail__container {
-    margin-top: 500px;
+    margin-top: 550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   
   .detail__songs {
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
-  
+
+  .statnumbers{
+    text-align: right;
+  }
+
+  .divider{
+    height: 18px;
+  }
+
   .song {
     width: 100%;
     padding: 10px;
+    padding-right: 0px;
     display: grid;
-    grid-template-columns: 0.1fr 3fr 0.5fr 0.3fr;
+    grid-template-columns: 0.1fr 3fr 0.5fr;
     border-radius: 5px;
+    pointer-events: none;
+  }
+
+  .detail__songs p{
+    pointer-events: none;
+    width: 100%;
+  }
+
+  .detail__about{
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .notclickable{
+    pointer-events: none;
   }
   
   .song:hover {
     background-color: hsla(0, 0%, 100%, 0.1);
-    cursor: pointer;
   }
 
 .battle_console {
@@ -160,6 +209,18 @@ body {
   max-width: 500px;
 }
 
+.fightbutton{
+  color: white;
+}
+
+.fightbutton:hover{
+  color: black !important;
+}
+
+.homebutton:hover{
+  background-color: white !important;
+}
+
 .homepage {
   display: flex;
   flex-direction: column;
@@ -173,6 +234,22 @@ body {
 
 .homepagebutton{
   width: 115px
+}
+
+.homepagebutton:hover{
+  transform: scale(1.1);
+}
+
+.buttonbackground{
+  background-color: rgb(34, 25, 33);
+  color: white;
+}
+
+.buttonbackground:hover{
+  transform: scale(1.1);
+  background-color: white !important;
+  color: black;
+  border-color: black;
 }
 
 .centered{

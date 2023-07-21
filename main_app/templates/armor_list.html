@@ -5,7 +5,7 @@
 {% block content %}
 
 <div class="buttons homepage">
-    <a class="button is-primary" href="{% url 'armor_create' %}" value="Create Armor">Create Armor</a>
+    <a class="button buttonbackground" href="{% url 'armor_create' %}" value="Create Armor">Create Armor</a>
 </div>
 
 
@@ -19,8 +19,8 @@
                     <img src="{{armor.image}}" alt="{{armor.name}}"/>
                 </figure>
             </div>
-            <div class="card-header">
-                <p class="card-header-title">{{armor.name}}</p>
+            <div class="card-header cardheaderbackground">
+                <p class="card-header-title cardtitle">{{armor.name}}</p>
             </div>
         </div>
     </a>

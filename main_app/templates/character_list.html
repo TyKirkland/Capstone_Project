@@ -5,20 +5,20 @@
 {% block content %}
 
 <div class="buttons homepage">
-    <a class="button is-primary" href="{% url 'character_create' %}" value="Create Character">Create Character</a>
+    <a class="button buttonbackground" href="{% url 'character_create' %}" value="Create Character">Create Character</a>
 </div>
 
 <div class="gallery">
     {% for character in characters %}
-    <a class="card" href="{% url 'character_detail' character.pk %}">
+    <a href="{% url 'character_detail' character.pk %}">
         <div class="card">
             <div class="card-image">
                 <figure class="image is-square">
                     <img src="{{character.image}}" alt="{{character.name}}"/>
                 </figure>
             </div>
-            <div class="card-header">
-                <p class="card-header-title">{{character.name}}</p>
+            <div class="card-header cardheaderbackground">
+                <p class="card-header-title cardtitle">{{character.name}}</p>
             </div>
         </div>
     </a>

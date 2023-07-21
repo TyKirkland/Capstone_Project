@@ -1,223 +1,354 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="detail__img">
-    <img src="{{character.image}}" alt="{{character.name}}" />
-</div>
-<div class="detail__name">
-    <h1 class="title">{{character.name}}</h1>
-</div>
-<div class="detail__container">
+<div class="centered">
 
-    <div class="detail__songs mb-5">
-        <h4 class="title is-4">Stats</h4>
-
-        <!-- character.character_class.all is how you access stat variables/anything in the character_class model -->
-        
-        <!-- class song is used for styling purposes as of now -->
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Class
-            </span>
-            <span>
-                {{character.character_class.name}}
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Type of character and also determines their base stats.
-            </span>
-        </p>        
-        
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Weapon
-            </span>
-            <span>
-                {{character.weapon.name}}
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Impacts many attack variables and adds bonuses.
-            </span>
-        </p>
-
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Armor
-            </span>
-            <span>
-                {{character.armor.name}}
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Provides the character with defense and other stats.
-            </span>
-        </p>
-
-
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Health
-            </span>
-            <span>
-                {{character.character_class.health|add:character.bonushealth}}
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Life of the character which is affected by each attack until one character reaches 0.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Strength
-            </span>
-            <span>
-                {{character.character_class.strength|add:character.bonusstrength}}
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Used to randomly roll against the opponents defense stat.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Speed
-            </span>
-            <span>
-                {{character.character_class.speed|add:character.bonusspeed}}
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Used to determine who goes first.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Defense
-            </span>
-            <span>
-                {{character.character_class.defense|add:character.bonusdefense}}
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Used to randomly roll against the opponents strength stat.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Dodge
-            </span>
-            <span>
-                {{character.character_class.dodge|add:character.bonusdodge}}%
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Percent chance you will dodge the opponents attack.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Block
-            </span>
-            <span>
-                {{character.character_class.block|add:character.bonusblock}}%
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Percent chance you will block the opponents attack.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Counter
-            </span>
-            <span>
-                {{character.character_class.counter|add:character.bonuscounter}}%
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Percent chance you will follow a block up with a counterattack.
-            </span>
-        </p>
-
-
+    <div class="detail__img">
+        <img src="{{character.image}}" alt="{{character.name}}" />
     </div>
-    <div class="detail__about">
-        <h4 class="title is-4">Background</h4>
-        <p>{{character.background}}</p>
+    <div class="detail__name">
+        <h1 class="title">{{character.name}}</h1>
     </div>
-    <br />
-    <div class="buttons">
-        <a href="{% url 'character_update' character.pk %}" class="button is-info">
-            <span class="icon">
-                <i class="fas fa-edit"></i>
-            </span>
-        </a>
-        <a href="{% url 'character_delete' character.pk %}" class="button is-danger">
-            <span class="icon">
-                <i class="fas fa-trash-alt"></i>
-            </span>
-        </a>
-    </div>
+    <div class="detail__container">
+    
+        <div class="detail__songs mb-5">
+            <h4 class="title is-4">Stats</h4>
+    
+            <!-- character.character_class.all is how you access stat variables/anything in the character_class model -->
+            
+            <!-- class song is used for styling purposes as of now -->
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Class
+                </span>
+                <span class="statnumbers">
+                    {{character.character_class.name}}
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Type of character, determines their base stats.
+                </span>
+            </p>        
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Weapon
+                </span>
+                <span class="statnumbers">
+                    {{character.weapon.name}}
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Impacts many attack variables and adds bonuses.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Armor
+                </span>
+                <span class="statnumbers">
+                    {{character.armor.name}}
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Provides the character with defense and other stats.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Health
+                </span>
+                <span class="statnumbers">
+                    {{character.character_class.health|add:character.bonushealth}}
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Life of the character which is affected by each attack until one character reaches 0.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Strength
+                </span>
+                <span class="statnumbers">
+                    {{character.character_class.strength|add:character.bonusstrength}}
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Used to randomly roll against the opponents defense stat.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Speed
+                </span>
+                <span class="statnumbers">
+                    {{character.character_class.speed|add:character.bonusspeed}}
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Used to determine who goes first.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Defense
+                </span>
+                <span class="statnumbers">
+                    {{character.character_class.defense|add:character.bonusdefense}}
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Used to randomly roll against the opponents strength stat.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Magic Defense
+                </span>
+                <span class="statnumbers">
+                    {{character.character_class.magic_defense|add:character.bonusmagicdefense}}
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Used to randomly roll against the opponents magic attack.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Dodge
+                </span>
+                <span class="statnumbers">
+                    {{character.character_class.dodge|add:character.bonusdodge}}%
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Percent chance you will dodge the opponents attack.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Block
+                </span>
+                <span class="statnumbers">
+                    {{character.character_class.block|add:character.bonusblock}}%
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Percent chance you will block the opponents attack.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Counter
+                </span>
+                <span class="statnumbers">
+                    {{character.character_class.counter|add:character.bonuscounter}}%
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Percent chance you will follow a block up with a counterattack.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Combo Chance
+                </span>
+                <span class="statnumbers">
+                    {{character.bonuscombo|add:character.character_class.combo}}%
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Chance you have to immediately follow up an attack with another.
+                </span>
+            </p>
+            <p class="divider"></p>
+            {% if character.character_class.name == 'Mage' %}
+                <div class="song">
+                    <span>
+                        <b>
+                            ‣
+                        </b>
+                    </span>
+                    <span>
+                        Spell 1
+                    </span>
+                    <span class="statnumbers">
+                        {{character.spell1.name}}
+                    </span>
+                </div>
+                <p class="">
+                    <span>
+                        First spell in the arsenal.
+                    </span>
+                </p>
+                <p class="divider"></p>
+                <div class="song">
+                    <span>
+                        <b>
+                            ‣
+                        </b>
+                    </span>
+                    <span>
+                        Spell 2
+                    </span>
+                    <span class="statnumbers">
+                        {{character.spell2.name}}
+                    </span>
+                </div>
+                <p class="">
+                    <span>
+                        Second spell in the arsenal.
+                    </span>
+                </p>
+                <p class="divider"></p>
+                <div class="song">
+                    <span>
+                        <b>
+                            ‣
+                        </b>
+                    </span>
+                    <span>
+                        Spell 3
+                    </span>
+                    <span class="statnumbers">
+                        {{character.spell3.name}}
+                    </span>
+                </div>
+                <p class="">
+                    <span>
+                        Third spell in the arsenal.
+                    </span>
+                </p>
+                <p class="divider"></p>
+                <div class="song">
+                    <span>
+                        <b>
+                            ‣
+                        </b>
+                    </span>
+                    <span>
+                        Spell 4
+                    </span>
+                    <span class="statnumbers">
+                        {{character.spell4.name}}
+                    </span>
+                </div>
+                <p class="">
+                    <span>
+                        Fourth spell in the arsenal.
+                    </span>
+                </p>
+                <p class="divider"></p>
 
+
+            {% endif %}
+    
+        </div>
+        <div class="detail__about">
+            <h4 class="title is-4">Background</h4>
+            <p>{{character.background}}</p>
+        </div>
+        <br />
+        <div class="buttons">
+            <a href="{% url 'character_update' character.pk %}" class="button is-info">
+                <span class="icon">
+                    <i class="fas fa-edit"></i>
+                </span>
+            </a>
+            <a href="{% url 'character_delete' character.pk %}" class="button is-danger">
+                <span class="icon">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+            </a>
+            <a href="{% url 'character_list' %}" class="button is-link">
+                <span class="icon">
+                    <i class="fas fa-arrow-left"></i>
+                </span>
+            </a>
+        </div>
+    
+    </div>
 </div>
 {% endblock %}

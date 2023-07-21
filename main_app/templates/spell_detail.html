@@ -1,126 +1,138 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="detail__img">
-    <img src="{{spell.image}}" alt="{{spell.name}}" />
-</div>
-<div class="detail__name">
-    <h1 class="title">{{spell.name}}</h1>
-</div>
-<div class="detail__container">
+<div class="centered">
 
-    <div class="detail__songs mb-5">
-        <h4 class="title is-4">Stats</h4>
-
-        <!-- character.character_class.all is how you access stat variables/anything in the character_class model -->
-        
-        <!-- class song is used for styling purposes as of now -->
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Water Damage
-            </span>
-            <span>
-                {{spell.water_damage}}
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Water damage done from the spell.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Earth Damage
-            </span>
-            <span>
-                {{spell.earth_damage}}
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Earth damage done from the spell.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Fire Damage
-            </span>
-            <span>
-                {{spell.fire_damage}}
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Fire damage done from the spell.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Air Damage
-            </span>
-            <span>
-                {{spell.air_damage}}
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Air damage done from the spell.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                On Use
-            </span>
-        </div>
-        <p class="">
-            <span>
-                {{spell.on_use}}
-            </span>
-        </p>
-
-
+    <div class="detail__img">
+        <img src="{{spell.image}}" alt="{{spell.name}}" />
     </div>
-    <div class="detail__about">
-        <h4 class="title is-4">Description</h4>
-        <p>{{spell.description}}</p>
+    <div class="detail__name">
+        <h1 class="title">{{spell.name}}</h1>
     </div>
-    <br />
-    <div class="buttons">
-        <a href="{% url 'spell_update' spell.pk %}" class="button is-info">
-            <span class="icon">
-                <i class="fas fa-edit"></i>
-            </span>
-        </a>
-        <a href="{% url 'spell_delete' spell.pk %}" class="button is-danger">
-            <span class="icon">
-                <i class="fas fa-trash-alt"></i>
-            </span>
-        </a>
+    <div class="detail__container">
+    
+        <div class="detail__songs mb-5">
+            <h4 class="title is-4">Stats</h4>
+    
+            <!-- character.character_class.all is how you access stat variables/anything in the character_class model -->
+            
+            <!-- class song is used for styling purposes as of now -->
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Water Damage
+                </span>
+                <span class="statnumbers">
+                    {{spell.water_damage}}
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Water damage done from the spell.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Earth Damage
+                </span>
+                <span class="statnumbers">
+                    {{spell.earth_damage}}
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Earth damage done from the spell.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Fire Damage
+                </span>
+                <span class="statnumbers">
+                    {{spell.fire_damage}}
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Fire damage done from the spell.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Air Damage
+                </span>
+                <span class="statnumbers">
+                    {{spell.air_damage}}
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Air damage done from the spell.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    On Use
+                </span>
+            </div>
+            <p class="">
+                    {{spell.on_use}}
+                </span>
+            </p>
+            <p class="divider"></p>
+    
+    
+        </div>
+        <div class="detail__about">
+            <h4 class="title is-4">Description</h4>
+            <p>{{spell.description}}</p>
+        </div>
+        <br />
+        <div class="buttons">
+            <a href="{% url 'spell_update' spell.pk %}" class="button is-info">
+                <span class="icon">
+                    <i class="fas fa-edit"></i>
+                </span>
+            </a>
+            <a href="{% url 'spell_delete' spell.pk %}" class="button is-danger">
+                <span class="icon">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+            </a>
+            <a href="{% url 'spell_list' %}" class="button is-link">
+                <span class="icon">
+                    <i class="fas fa-arrow-left"></i>
+                </span>
+            </a>
+        </div>
+    
     </div>
-
 </div>
 {% endblock %}

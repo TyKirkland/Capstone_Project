@@ -1,183 +1,218 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="detail__img">
-    <img src="{{weapon.image}}" alt="{{weapon.name}}" />
-</div>
-<div class="detail__name">
-    <h1 class="title">{{weapon.name}}</h1>
-</div>
-<div class="detail__container">
+<div class="centered">
 
-    <div class="detail__songs mb-5">
-        <h4 class="title is-4">Stats</h4>
-
-        <!-- character.character_class.all is how you access stat variables/anything in the character_class model -->
-        
-        <!-- class song is used for styling purposes as of now -->
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Bonus Strength
-            </span>
-            <span>
-                {{weapon.strength}}
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Strength given to the character.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Bonus Block Chance
-            </span>
-            <span>
-                {{weapon.block}}%
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Chance the user will block an incoming attack.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Bonus Counter Chance
-            </span>
-            <span>
-                {{weapon.counter}}%
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Chance the user will counter an incoming attack after a successful block.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Critical Hit Chance
-            </span>
-            <span>
-                {{weapon.crit}}%
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Chance the user has to critically hit the oppponent.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Armor Piercing Chance
-            </span>
-            <span>
-                {{weapon.armor_piercing}}%
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Chance the user has to pierce through the opponents armor/defenses and full damage.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Life Steal Percentage
-            </span>
-            <span>
-                {{weapon.life_steal}}%
-            </span>
-        </div>
-        <p class="">
-            <span>
-                What percentage of life you heal back after a successful hit.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Poison Chance
-            </span>
-            <span>
-                {{weapon.poison_chance}}%
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Percent chance you poison an enemy upon a successful attack.
-            </span>
-        </p>
-        <div class="song">
-            <span>
-                <b>
-                    ‣
-                </b>
-            </span>
-            <span>
-                Poison Damage
-            </span>
-            <span>
-                {{weapon.poison_damage}}
-            </span>
-        </div>
-        <p class="">
-            <span>
-                Damage the poison inflicts each time.
-            </span>
-        </p>
-
-
+    <div class="detail__img">
+        <img src="{{weapon.image}}" alt="{{weapon.name}}" />
     </div>
-    <div class="detail__about">
-        <h4 class="title is-4">Background</h4>
-        <p>{{weapon.background}}</p>
+    <div class="detail__name">
+        <h1 class="title">{{weapon.name}}</h1>
     </div>
-    <br />
-    <div class="buttons">
-        <a href="{% url 'weapon_update' weapon.pk %}" class="button is-info">
-            <span class="icon">
-                <i class="fas fa-edit"></i>
-            </span>
-        </a>
-        <a href="{% url 'weapon_delete' weapon.pk %}" class="button is-danger">
-            <span class="icon">
-                <i class="fas fa-trash-alt"></i>
-            </span>
-        </a>
+    <div class="detail__container">
+    
+        <div class="detail__songs mb-5">
+            <h4 class="title is-4 notclickable">Stats</h4>
+    
+            <!-- character.character_class.all is how you access stat variables/anything in the character_class model -->
+            
+            <!-- class song is used for styling purposes as of now -->
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Bonus Strength
+                </span>
+                <span class="statnumbers">
+                    {{weapon.strength}}
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Strength given to the character.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Bonus Block Chance
+                </span>
+                <span class="statnumbers">
+                    {{weapon.block}}%
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Chance the user will block an incoming attack.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Bonus Counter Chance
+                </span>
+                <span class="statnumbers">
+                    {{weapon.counter}}%
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Chance the user will counter an incoming attack after a successful block.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Critical Hit Chance
+                </span>
+                <span class="statnumbers">
+                    {{weapon.crit}}%
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Chance the user has to critically hit the oppponent.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Armor Piercing Chance
+                </span>
+                <span class="statnumbers">
+                    {{weapon.armor_piercing}}%
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Chance the user has to pierce through the opponents defenses and deal full damage.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Life Steal Percentage
+                </span>
+                <span class="statnumbers">
+                    {{weapon.life_steal}}%
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    What percentage of life you heal back after a successful hit.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Combo Chance
+                </span>
+                <span class="statnumbers">
+                    {{weapon.combo}}%
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Chance you have to immediately follow up an attack with another.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Poison Chance
+                </span>
+                <span class="statnumbers">
+                    {{weapon.poison_chance}}%
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Percent chance you poison an enemy upon a successful attack.
+                </span>
+            </p>
+            <p class="divider"></p>
+            <div class="song">
+                <span>
+                    <b>
+                        ‣
+                    </b>
+                </span>
+                <span>
+                    Poison Damage
+                </span>
+                <span class="statnumbers">
+                    {{weapon.poison_damage}}
+                </span>
+            </div>
+            <p class="">
+                <span>
+                    Damage the poison inflicts each time.
+                </span>
+            </p>
+            <p class="divider"></p>
+    
+    
+        </div>
+        <div class="detail__about">
+            <h4 class="title is-4">Background</h4>
+            <p>{{weapon.background}}</p>
+        </div>
+        <br />
+        <div class="buttons">
+            <a href="{% url 'weapon_update' weapon.pk %}" class="button is-info">
+                <span class="icon">
+                    <i class="fas fa-edit"></i>
+                </span>
+            </a>
+            <a href="{% url 'weapon_delete' weapon.pk %}" class="button is-danger">
+                <span class="icon">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+            </a>
+            <a href="{% url 'weapon_list' %}" class="button is-link">
+                <span class="icon">
+                    <i class="fas fa-arrow-left"></i>
+                </span>
+            </a>
+        </div>
+    
     </div>
-
 </div>
 {% endblock %}
