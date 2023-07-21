@@ -550,19 +550,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 battleResultsElement.prepend(combobr1);
                 battleResultsElement.prepend(combobr2);
                 battleResultsElement.prepend(combobr3);
-                
+
                 this.attack(opponent)
             }
         }
 
         this.spell_attack = function(opponent, spell){
 
-            let resultElement1 = document.createElement("li");
-            let resultElement2 = document.createElement("li");
-            let resultElement3 = document.createElement("li");
-            let br1 = document.createElement("br");
-            let br2 = document.createElement("br");
-            let br3 = document.createElement("br");
+            let spellElement1 = document.createElement("li");
+            let spellElement2 = document.createElement("li");
+            let spellElement3 = document.createElement("li");
+            let spellbr1 = document.createElement("br");
+            let spellbr2 = document.createElement("br");
+            let spellbr3 = document.createElement("br");
             
             let spell_id = spell.dataset.spell_id
             let name = spell.dataset.name
@@ -577,17 +577,17 @@ document.addEventListener("DOMContentLoaded", function() {
             // defensive numbers
             let defenderMagicDefense = parseInt(opponent.magic_defense)
 
-            resultElement1.textContent = `${this.name} casts ${name}!`;
-            resultElement2.textContent = `${on_use}`
-            resultElement3.textContent = `${opponent.name} takes ${water_damage + earth_damage + fire_damage + air_damage} damage!`;
-            resultElement2.style.color = "plum";
-            resultElement3.style.color = "red";
-            battleResultsElement.prepend(resultElement3);
-            battleResultsElement.prepend(resultElement2);
-            battleResultsElement.prepend(resultElement1);
-            battleResultsElement.prepend(br1);
-            battleResultsElement.prepend(br2);
-            battleResultsElement.prepend(br3);
+            spellElement1.textContent = `${this.name} casts ${name}!`;
+            spellElement2.textContent = `${on_use}`
+            spellElement3.textContent = `${opponent.name} takes ${water_damage + earth_damage + fire_damage + air_damage} damage!`;
+            spellElement2.style.color = "plum";
+            spellElement3.style.color = "red";
+            battleResultsElement.prepend(spellElement3);
+            battleResultsElement.prepend(spellElement2);
+            battleResultsElement.prepend(spellElement1);
+            battleResultsElement.prepend(spellbr1);
+            battleResultsElement.prepend(spellbr2);
+            battleResultsElement.prepend(spellbr3);
 
         }
     }

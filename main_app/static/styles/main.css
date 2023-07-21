@@ -1,9 +1,14 @@
 
 body {
-    background-color: #121212;
+    background-color: rgb(46, 34, 44);
     color: #ffffff;
     min-height: 100vh;
   }
+
+  .navbarcolor {
+    background-color: rgb(34, 25, 33);
+  }
+  
   
   h1,
   h2,
@@ -147,6 +152,7 @@ body {
 #battle_results::-webkit-scrollbar-thumb {
   background-color: #888;
 }
+
 
 .logo{
   width: 100%;
