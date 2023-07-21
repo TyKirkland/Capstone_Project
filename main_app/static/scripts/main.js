@@ -67,7 +67,6 @@ document.addEventListener("DOMContentLoaded", function() {
         // this is where each instance of an attack will take place, gets repeated on a loop in the battle function until there is one winner
         this.attack = function(opponent) {
 
-            console.log(this)
 
             let resultElement1 = document.createElement("li");
             let resultElement2 = document.createElement("li");
@@ -75,9 +74,17 @@ document.addEventListener("DOMContentLoaded", function() {
             let resultElement4 = document.createElement("li");
             let healthRegenElement = document.createElement("li");
             let poisonElement = document.createElement("li");
+            let critElement = document.createElement("li");
+            let armorPiercingElement = document.createElement("li");
+            let lifeStealElement = document.createElement("li");
+            let comboElement = document.createElement("li");
             let victoryElement = document.createElement("li");
             healthRegenElement.style.color = "yellow";
             poisonElement.style.color = "green";
+            critElement.style.color = "lightpink";
+            armorPiercingElement.style.color = "orange";
+            lifeStealElement.style.color = "lightgray";
+            comboElement.style.color = "violet";
             let br1 = document.createElement("br");
             let br2 = document.createElement("br");
             let br3 = document.createElement("br");
@@ -121,17 +128,16 @@ document.addEventListener("DOMContentLoaded", function() {
             let attackerDamage = attackerStrength - defenderDefense;
             let defenderDamage = defenderStrength - attackerDefense;
 
-            let attackerCritDamage = attackerDamage * 2;
-            let defenderCritDamage = defenderDamage * 2;
-
-            let attackerLifeStealAmount = attackerDamage * attackerLifeSteal;
-            let defenderLifeStealAmount = defenderDamage * defenderLifeSteal;
-
-            let defenderCritLifeStealAmount = defenderCritDamage * defenderLifeSteal;
-            let attackerCritLifeStealAmount = attackerCritDamage * attackerLifeSteal;
-
-
-
+            
+            
+            
+            // implimenting armor piercing functionality before crit chance
+            // also need to do it before they get set to 0
+            if(attackerArmorPiercingChance > Math.random()){
+                attackerDamage += defenderDefense;
+                armorPiercingElement.textContent = `${this.name} pierces through ${opponent.name}'s defense!`;
+            }
+            
             // sets negative damage to 0
             if(attackerDamage < 0){
                 attackerDamage = 0;
@@ -139,8 +145,22 @@ document.addEventListener("DOMContentLoaded", function() {
             if(defenderDamage < 0){
                 defenderDamage = 0;
             }
-
+            
             // Here is where the logic starts!
+            
+            // implimenting crit chance functionality
+            if(attackerCritChance > Math.random()){
+                attackerDamage = attackerDamage * 2;
+                critElement.textContent = `${this.name} crits!`;
+            }
+            
+            // implimenting life steal functionality
+            let attackerLifeStealAmount = attackerDamage * attackerLifeSteal;
+            let defenderLifeStealAmount = defenderDamage * defenderLifeSteal;
+
+            if(attackerLifeStealAmount > 0 && attackerLifeSteal >= Math.random()){
+                lifeStealElement.textContent = `${this.name} steals ${attackerLifeStealAmount} Health!`;
+            }
 
             // implimenting health regen functionality, 15% chance to activate
             // also doesn't get activated on a combo turn
@@ -157,7 +177,6 @@ document.addEventListener("DOMContentLoaded", function() {
             // make sure to regen first and then apply the poison damage
             // poisoned character gets ticked at the start of his turn after he has a chance to regen health
             if(this.poisoned == true){
-                console.log('poisoned')
                 this.health = this.health - opponent.poison_damage;
                 attackerHealthElement.textContent = `${this.health} Health`;
                 if(this.health <= 0){
@@ -202,7 +221,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
             if (defenderDodgeChance >= Math.random()) {
-                console.log('here1')
                 const attackStatements = [
                     `${this.name} launches a powerful attack at ${opponent.name}!`,
                     `${this.name} strikes swiftly and forcefully at ${opponent.name}!`,
@@ -237,7 +255,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             else if(defenderBlockChance >= Math.random()) {
-                console.log('here2')
                 const blockStatements = [
                     `${opponent.name} skillfully blocks the attack completely and nullifies the damage!`,
                     `${opponent.name} raises their shield just in time, blocking the attack and leaving ${this.name} surprised!`,
@@ -267,6 +284,15 @@ document.addEventListener("DOMContentLoaded", function() {
                         resultElement2.textContent = ` ${opponent.name} turns with the momentum, striking ${this.name} but dealing no damage!`;
                     }
                     else{
+                        if(defenderLifeStealAmount > 0 && defenderLifeSteal >= Math.random()){
+                            lifeStealElement.textContent = `${opponent.name} steals ${defenderLifeStealAmount} Health!`;
+                            battleResultsElement.prepend(lifeStealElement);
+                            opponent.health += defenderLifeStealAmount;
+                            if(opponent.health > opponent.max_health){
+                                opponent.health = opponent.max_health;
+                            }
+                            defenderHealthElement.textContent = `${opponent.health} Health`;            
+                        }
                         resultElement2.textContent = randomCounterStatement + ` It inflicts ${defenderDamage} damage to ${this.name}!`;
                         this.health -= defenderDamage;
                         attackerHealthElement.textContent = `${this.health} Health`;
@@ -304,7 +330,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 battleResultsElement.prepend(br3);
             }
             else if(attackerDamage > 0){
-                console.log('here3')
                 if(attackerPoisonChance > Math.random() && opponent.poisoned == false){
                     opponent.poisoned = true;
                     let attackerPoisonElement = document.createElement('li');
@@ -312,13 +337,28 @@ document.addEventListener("DOMContentLoaded", function() {
                     attackerPoisonElement.style.color = 'green';
                     battleResultsElement.prepend(attackerPoisonElement);
                 }
+
                 if (attackerStrength >= 80) {
                     resultElement1.textContent = `${this.name} unleashes a devastating attack on ${opponent.name} with unmatched strength!`;
                     resultElement2.textContent = `The sheer force of the attack overwhelms ${opponent.name}!`;
                     resultElement3.textContent = `${opponent.name} sustains a massive ${attackerDamage} damage!`;
                     resultElement3.style.color = "red";
                   
+                    if(lifeStealElement.textContent != ''){
+                        battleResultsElement.prepend(lifeStealElement);
+                        this.health += attackerLifeStealAmount;
+                        if(this.health > this.max_health){
+                            this.health = this.max_health;
+                        }
+                        attackerHealthElement.textContent = `${this.health} Health`;        
+                    }    
                     battleResultsElement.prepend(resultElement3);
+                    if(critElement.textContent != ''){
+                        battleResultsElement.prepend(critElement);
+                    }    
+                    if(armorPiercingElement.textContent != ''){
+                        battleResultsElement.prepend(armorPiercingElement);
+                    }    
                     battleResultsElement.prepend(resultElement2);
                     battleResultsElement.prepend(resultElement1);
                 }
@@ -328,7 +368,21 @@ document.addEventListener("DOMContentLoaded", function() {
                     resultElement3.textContent = `${opponent.name} suffers ${attackerDamage} damage!`;
                     resultElement3.style.color = "red";
                 
+                    if(lifeStealElement.textContent != ''){
+                        battleResultsElement.prepend(lifeStealElement);
+                        this.health += attackerLifeStealAmount;
+                        if(this.health > this.max_health){
+                            this.health = this.max_health;
+                        }
+                        attackerHealthElement.textContent = `${this.health} Health`;        
+                    }    
                     battleResultsElement.prepend(resultElement3);
+                    if(critElement.textContent != ''){
+                        battleResultsElement.prepend(critElement);
+                    }    
+                    if(armorPiercingElement.textContent != ''){
+                        battleResultsElement.prepend(armorPiercingElement);
+                    }    
                     battleResultsElement.prepend(resultElement2);
                     battleResultsElement.prepend(resultElement1);
                 } 
@@ -338,7 +392,21 @@ document.addEventListener("DOMContentLoaded", function() {
                     resultElement3.textContent = `${opponent.name} receives ${attackerDamage} damage!`;
                     resultElement3.style.color = "red";
                 
+                    if(lifeStealElement.textContent != ''){
+                        battleResultsElement.prepend(lifeStealElement);
+                        this.health += attackerLifeStealAmount;
+                        if(this.health > this.max_health){
+                            this.health = this.max_health;
+                        }
+                        attackerHealthElement.textContent = `${this.health} Health`;        
+                    }    
                     battleResultsElement.prepend(resultElement3);
+                    if(critElement.textContent != ''){
+                        battleResultsElement.prepend(critElement);
+                    }    
+                    if(armorPiercingElement.textContent != ''){
+                        battleResultsElement.prepend(armorPiercingElement);
+                    }    
                     battleResultsElement.prepend(resultElement2);
                     battleResultsElement.prepend(resultElement1);
                 } 
@@ -348,7 +416,21 @@ document.addEventListener("DOMContentLoaded", function() {
                     resultElement3.textContent = `${opponent.name} takes ${attackerDamage} damage!`;
                     resultElement3.style.color = "red";
                 
+                    if(lifeStealElement.textContent != ''){
+                        battleResultsElement.prepend(lifeStealElement);
+                        this.health += attackerLifeStealAmount;
+                        if(this.health > this.max_health){
+                            this.health = this.max_health;
+                        }
+                        attackerHealthElement.textContent = `${this.health} Health`;        
+                    }    
                     battleResultsElement.prepend(resultElement3);
+                    if(critElement.textContent != ''){
+                        battleResultsElement.prepend(critElement);
+                    }    
+                    if(armorPiercingElement.textContent != ''){
+                        battleResultsElement.prepend(armorPiercingElement);
+                    }    
                     battleResultsElement.prepend(resultElement2);
                     battleResultsElement.prepend(resultElement1);
                 } 
@@ -357,7 +439,21 @@ document.addEventListener("DOMContentLoaded", function() {
                     resultElement2.textContent = `${opponent.name} manages to defend against the attack but still takes ${attackerDamage} damage!`;
                     resultElement2.style.color = "red";
                 
+                    if(lifeStealElement.textContent != ''){
+                        battleResultsElement.prepend(lifeStealElement);
+                        this.health += attackerLifeStealAmount;
+                        if(this.health > this.max_health){
+                            this.health = this.max_health;
+                        }
+                        attackerHealthElement.textContent = `${this.health} Health`;        
+                    }    
                     battleResultsElement.prepend(resultElement2);
+                    if(critElement.textContent != ''){
+                        battleResultsElement.prepend(critElement);
+                    }
+                    if(armorPiercingElement.textContent != ''){
+                        battleResultsElement.prepend(armorPiercingElement);
+                    }    
                     battleResultsElement.prepend(resultElement1);
                 }
 
@@ -371,7 +467,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 battleResultsElement.prepend(br3);
             }
             else{
-                console.log('here4')
                 if (defenderDefense >= 80) {
                     resultElement3.textContent = `${this.name} tries to attack!`
                     resultElement1.textContent = ` ${opponent.name}'s incredible defense holds!`;
@@ -434,6 +529,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 battleResultsElement.prepend(winningbr1);
                 battleResultsElement.prepend(winningbr2);
                 battleResultsElement.prepend(winningbr3);
+                return
             }
             else if(opponent.health < 0){
                 victoryElement.textContent = `${this.name} Wins!!!`;
@@ -441,6 +537,21 @@ document.addEventListener("DOMContentLoaded", function() {
                 battleResultsElement.prepend(winningbr1);
                 battleResultsElement.prepend(winningbr2);
                 battleResultsElement.prepend(winningbr3);
+                return
+            }
+
+            if(attackerComboChance >= Math.random()){
+                comboElement.textContent = `${this.name} immediately follows up with another attack!`;
+                let combobr1 = document.createElement("br");
+                let combobr2 = document.createElement("br");
+                let combobr3 = document.createElement("br");
+
+                battleResultsElement.prepend(comboElement);
+                battleResultsElement.prepend(combobr1);
+                battleResultsElement.prepend(combobr2);
+                battleResultsElement.prepend(combobr3);
+                
+                this.attack(opponent)
             }
         }
 
@@ -466,7 +577,6 @@ document.addEventListener("DOMContentLoaded", function() {
             // defensive numbers
             let defenderMagicDefense = parseInt(opponent.magic_defense)
 
-            console.log(resultElement1)
             resultElement1.textContent = `${this.name} casts ${name}!`;
             resultElement2.textContent = `${on_use}`
             resultElement3.textContent = `${opponent.name} takes ${water_damage + earth_damage + fire_damage + air_damage} damage!`;
@@ -576,11 +686,6 @@ document.addEventListener("DOMContentLoaded", function() {
         if(character2_spell4){
             character2_spell4.addEventListener("click", handleSpellPress);
         }
-
-        console.log(character1_spell1.dataset.name)
-        console.log(character1_spell2)
-        console.log(character1Element)
-        console.log(character1_spell4)
     }
         // after the loop completes I need to output the winner here
 
