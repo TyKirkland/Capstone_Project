@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let victoryElement = document.createElement("li");
             healthRegenElement.style.color = "yellow";
             poisonElement.style.color = "green";
-            let br = document.createElement("br");
+            let br1 = document.createElement("br");
             let br2 = document.createElement("br");
             let br3 = document.createElement("br");
             let br4 = document.createElement("br");
@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // implimenting health regen functionality, 15% chance to activate
             // also doesn't get activated on a combo turn
-            if(.15 > Math.random() && this.combo_turn == false && this.health !== this.max_health){
+            if(.15 > Math.random() && this.combo_turn == false && this.health !== this.max_health && this.health_regen > 0){
                 this.health = this.health + this.health_regen;
                 // make sure not to surpass max health!
                 if(this.health > this.max_health){
@@ -152,23 +152,23 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 attackerHealthElement.textContent = `${this.health} Health`;
                 healthRegenElement.textContent = `${this.name} regenerated ${this.health_regen} Health`;
-                battleResultsElement.prepend(healthRegenElement)
             }
 
             // make sure to regen first and then apply the poison damage
             // poisoned character gets ticked at the start of his turn after he has a chance to regen health
-            if(this.poisoned == false){
+            if(this.poisoned == true){
+                console.log('poisoned')
                 this.health = this.health - opponent.poison_damage;
                 attackerHealthElement.textContent = `${this.health} Health`;
                 if(this.health <= 0){
                     // outputting different messages depending on if they hit the health regen chance as well
                     if(healthRegenElement.textContent == ""){
                         poisonElement.textContent = `${this.name} takes ${opponent.poison_damage} damage from poison!`;
-                        resultElement1.textContent = `${this.name} succumbs from the poison's influence.`
+                        resultElement1.textContent = `${this.name} succumbs under the poison's influence.`
                         battleResultsElement.prepend(resultElement1);
                         resultElement1.style.color = "red";
                         battleResultsElement.prepend(poisonElement);
-                        battleResultsElement.prepend(br);
+                        battleResultsElement.prepend(br1);
                         battleResultsElement.prepend(br2);
                         victoryElement.textContent = `${opponent.name} Wins!!!`;
                         battleResultsElement.prepend(victoryElement);
@@ -177,12 +177,32 @@ document.addEventListener("DOMContentLoaded", function() {
                         battleResultsElement.prepend(br5);
                         return;
                     }
+                    else{
+                        poisonElement.textContent = `${this.name} takes ${opponent.poison_damage} damage from poison!`;
+                        resultElement1.textContent = `Despite ${this.name}'s best efforts the poison prevails!`
+                        battleResultsElement.prepend(resultElement1);
+                        resultElement1.style.color = "red";
+                        battleResultsElement.prepend(poisonElement);
+                        battleResultsElement.prepend(healthRegenElement);
+                        battleResultsElement.prepend(br1);
+                        battleResultsElement.prepend(br2);
+                        victoryElement.textContent = `${opponent.name} Wins!!!`;
+                        battleResultsElement.prepend(victoryElement);
+                        battleResultsElement.prepend(br3);
+                        battleResultsElement.prepend(br4);
+                        battleResultsElement.prepend(br5);
+                        return
+                    }
+                }
+                else{
+                    poisonElement.textContent = `${this.name} takes ${opponent.poison_damage} damage from poison!`;
                 }
             }
 
 
 
             if (defenderDodgeChance >= Math.random()) {
+                console.log('here1')
                 const attackStatements = [
                     `${this.name} launches a powerful attack at ${opponent.name}!`,
                     `${this.name} strikes swiftly and forcefully at ${opponent.name}!`,
@@ -205,12 +225,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 resultElement1.textContent = randomAttackStatement;
                 resultElement2.textContent = randomDodgeStatement;
                 resultElement2.style.color = "cyan";
+
                 battleResultsElement.prepend(resultElement2);
                 battleResultsElement.prepend(resultElement1);
-                battleResultsElement.prepend(br, br2, br3);
+                if(poisonElement.textContent != '' && this.poisoned == true){
+                    battleResultsElement.prepend(poisonElement);
+                }
+                battleResultsElement.prepend(br1);
+                battleResultsElement.prepend(br2);
+                battleResultsElement.prepend(br3);
             }
 
-            else if (defenderBlockChance >= Math.random()) {
+            else if(defenderBlockChance >= Math.random()) {
+                console.log('here2')
                 const blockStatements = [
                     `${opponent.name} skillfully blocks the attack completely and nullifies the damage!`,
                     `${opponent.name} raises their shield just in time, blocking the attack and leaving ${this.name} surprised!`,
@@ -226,27 +253,34 @@ document.addEventListener("DOMContentLoaded", function() {
                 battleResultsElement.prepend(resultElement3);
                 
                 if (defenderCounterChance >= Math.random()) {
-                  const counterStatements = [
-                    `${opponent.name} swiftly counterattacks, catching ${this.name} off guard and dealing a powerful blow!`,
-                    `Seizing the opportunity, ${opponent.name} launches a counterstrike, striking back at ${this.name} with unexpected force!`,
-                    `Responding with precision, ${opponent.name} retaliates and delivers a devastating counterattack to ${this.name}!`,
-                    `With a calculated response, ${opponent.name} turns defense into offense, surprising ${this.name} with a fierce counterassault!`,
-                    `${opponent.name} skillfully counters, leaving ${this.name} momentarily defenseless against their swift and accurate strikes!`,
-                    `${opponent.name} channels the energy of the blocked attack into a powerful counter, hitting ${this.name} with incredible force!`,
+                    const counterStatements = [
+                        `${opponent.name} swiftly counterattacks, catching ${this.name} off guard and dealing a powerful blow!`,
+                        `Seizing the opportunity, ${opponent.name} launches a counterstrike, striking back at ${this.name} with unexpected force!`,
+                        `Responding with precision, ${opponent.name} retaliates and delivers a devastating counterattack to ${this.name}!`,
+                        `With a calculated response, ${opponent.name} turns defense into offense, surprising ${this.name} with a fierce counterassault!`,
+                        `${opponent.name} skillfully counters, leaving ${this.name} momentarily defenseless against their swift and accurate strikes!`,
+                        `${opponent.name} channels the energy of the blocked attack into a powerful counter, hitting ${this.name} with incredible force!`,
                     ];
-                  const randomCounterStatement = counterStatements[Math.floor(Math.random() * counterStatements.length)];
+                    const randomCounterStatement = counterStatements[Math.floor(Math.random() * counterStatements.length)];
                 
-                  damage = defenderStrength - attackerDefense;
-                  if(damage <= 0){
-                    resultElement2.textContent = ` ${opponent.name} turns with the momentum, striking ${this.name} but dealing no damage!`;
-                  }
-                  else{
-                      resultElement2.textContent = randomCounterStatement + ` It inflicts ${damage} damage to ${this.name}!`;
-                      this.health -= damage;
-                      attackerHealthElement.textContent = `${this.health} Health`;
-                  }
-                  resultElement2.style.color = "magenta";
-                  battleResultsElement.prepend(resultElement2);
+                    if(defenderDamage <= 0){
+                        resultElement2.textContent = ` ${opponent.name} turns with the momentum, striking ${this.name} but dealing no damage!`;
+                    }
+                    else{
+                        resultElement2.textContent = randomCounterStatement + ` It inflicts ${defenderDamage} damage to ${this.name}!`;
+                        this.health -= defenderDamage;
+                        attackerHealthElement.textContent = `${this.health} Health`;
+                    }
+                    if(defenderPoisonChance > Math.random() && this.poisoned == false){
+                        this.poisoned = true;
+                        let defenderPoisonElement = document.createElement('li');
+                        defenderPoisonElement.textContent = `${opponent.name} inflicts ${this.name} with poison!`;
+                        defenderPoisonElement.style.color = 'green';
+                        battleResultsElement.prepend(defenderPoisonElement);
+                    }
+
+                    resultElement2.style.color = "magenta";
+                    battleResultsElement.prepend(resultElement2);
                 }
 
                 const attackStatements = [
@@ -262,85 +296,82 @@ document.addEventListener("DOMContentLoaded", function() {
                 
                 battleResultsElement.prepend(resultElement1);
                 battleResultsElement.prepend(resultElement3);
-                battleResultsElement.prepend(br);
+                if(poisonElement.textContent != '' && this.poisoned == true){
+                    battleResultsElement.prepend(poisonElement);
+                }
+                battleResultsElement.prepend(br1);
                 battleResultsElement.prepend(br2);
                 battleResultsElement.prepend(br3);
-
-                
             }
-
-            
-            else if(damage > 0){
-
+            else if(attackerDamage > 0){
+                console.log('here3')
+                if(attackerPoisonChance > Math.random() && opponent.poisoned == false){
+                    opponent.poisoned = true;
+                    let attackerPoisonElement = document.createElement('li');
+                    attackerPoisonElement.textContent = `${this.name} inflicts ${opponent.name} with poison!`;
+                    attackerPoisonElement.style.color = 'green';
+                    battleResultsElement.prepend(attackerPoisonElement);
+                }
                 if (attackerStrength >= 80) {
                     resultElement1.textContent = `${this.name} unleashes a devastating attack on ${opponent.name} with unmatched strength!`;
                     resultElement2.textContent = `The sheer force of the attack overwhelms ${opponent.name}!`;
-                    resultElement3.textContent = `${opponent.name} sustains a massive ${damage} damage!`;
+                    resultElement3.textContent = `${opponent.name} sustains a massive ${attackerDamage} damage!`;
                     resultElement3.style.color = "red";
                   
                     battleResultsElement.prepend(resultElement3);
                     battleResultsElement.prepend(resultElement2);
                     battleResultsElement.prepend(resultElement1);
-                    battleResultsElement.prepend(br);
-                    battleResultsElement.prepend(br2);
-                    battleResultsElement.prepend(br3);
                 }
                 else if (attackerStrength >= 60) {
                     resultElement1.textContent = `${this.name} launches a powerful attack at ${opponent.name}!`;
                     resultElement2.textContent = `${opponent.name} tries to defend, but ${this.name}'s strength overpowers the defense!`;
-                    resultElement3.textContent = `${opponent.name} suffers ${damage} damage!`;
+                    resultElement3.textContent = `${opponent.name} suffers ${attackerDamage} damage!`;
                     resultElement3.style.color = "red";
                 
                     battleResultsElement.prepend(resultElement3);
                     battleResultsElement.prepend(resultElement2);
                     battleResultsElement.prepend(resultElement1);
-                    battleResultsElement.prepend(br);
-                    battleResultsElement.prepend(br2);
-                    battleResultsElement.prepend(br3);
                 } 
                 else if (attackerStrength >= 40) {
                     resultElement1.textContent = `${this.name} strikes swiftly and forcefully at ${opponent.name}!`;
                     resultElement2.textContent = `${opponent.name} tries to block, but the attack breaks through the defense!`;
-                    resultElement3.textContent = `${opponent.name} receives ${damage} damage!`;
+                    resultElement3.textContent = `${opponent.name} receives ${attackerDamage} damage!`;
                     resultElement3.style.color = "red";
                 
                     battleResultsElement.prepend(resultElement3);
                     battleResultsElement.prepend(resultElement2);
                     battleResultsElement.prepend(resultElement1);
-                    battleResultsElement.prepend(br);
-                    battleResultsElement.prepend(br2);
-                    battleResultsElement.prepend(br3);
                 } 
                 else if (attackerStrength >= 20) {
                     resultElement1.textContent = `${this.name} delivers a solid blow to ${opponent.name}!`;
                     resultElement2.textContent = `Despite ${opponent.name}'s attempt to counter, the attack lands successfully!`;
-                    resultElement3.textContent = `${opponent.name} takes ${damage} damage!`;
+                    resultElement3.textContent = `${opponent.name} takes ${attackerDamage} damage!`;
                     resultElement3.style.color = "red";
                 
                     battleResultsElement.prepend(resultElement3);
                     battleResultsElement.prepend(resultElement2);
                     battleResultsElement.prepend(resultElement1);
-                    battleResultsElement.prepend(br);
-                    battleResultsElement.prepend(br2);
-                    battleResultsElement.prepend(br3);
                 } 
                 else {
                     resultElement1.textContent = `${this.name} launches an attack at ${opponent.name}!`;
-                    resultElement2.textContent = `${opponent.name} manages to defend against the attack but still takes ${damage} damage!`;
+                    resultElement2.textContent = `${opponent.name} manages to defend against the attack but still takes ${attackerDamage} damage!`;
                     resultElement2.style.color = "red";
                 
                     battleResultsElement.prepend(resultElement2);
                     battleResultsElement.prepend(resultElement1);
-                    battleResultsElement.prepend(br);
-                    battleResultsElement.prepend(br2);
-                    battleResultsElement.prepend(br3);
                 }
 
-                opponent.health -= damage
+                opponent.health -= attackerDamage
                 defenderHealthElement.textContent = `${opponent.health} Health`;
-
+                if(poisonElement.textContent != '' && this.poisoned == true){
+                    battleResultsElement.prepend(poisonElement);
+                }
+                battleResultsElement.prepend(br1);
+                battleResultsElement.prepend(br2);
+                battleResultsElement.prepend(br3);
             }
             else{
+                console.log('here4')
                 if (defenderDefense >= 80) {
                     resultElement3.textContent = `${this.name} tries to attack!`
                     resultElement1.textContent = ` ${opponent.name}'s incredible defense holds!`;
@@ -349,9 +380,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     battleResultsElement.prepend(resultElement2);
                     battleResultsElement.prepend(resultElement1);
                     battleResultsElement.prepend(resultElement3);
-                    battleResultsElement.prepend(br);
-                    battleResultsElement.prepend(br2)
-                    battleResultsElement.prepend(br3);
                 } 
                 else if (defenderDefense >= 60) {
                     resultElement3.textContent = `${this.name} attacks!`
@@ -361,9 +389,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     battleResultsElement.prepend(resultElement2);
                     battleResultsElement.prepend(resultElement1);
                     battleResultsElement.prepend(resultElement3);
-                    battleResultsElement.prepend(br);
-                    battleResultsElement.prepend(br2);
-                    battleResultsElement.prepend(br3);
                 } 
                 else if (defenderDefense >= 40) {
                     resultElement3.textContent = `${this.name} attacks!`
@@ -373,9 +398,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     battleResultsElement.prepend(resultElement2);
                     battleResultsElement.prepend(resultElement1);
                     battleResultsElement.prepend(resultElement3);
-                    battleResultsElement.prepend(br);
-                    battleResultsElement.prepend(br2);
-                    battleResultsElement.prepend(br3);
                 } 
                 else if (defenderDefense >= 20) {
                     resultElement3.textContent = `${this.name} swings forward!`
@@ -385,9 +407,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     battleResultsElement.prepend(resultElement2);
                     battleResultsElement.prepend(resultElement1);
                     battleResultsElement.prepend(resultElement3);
-                    battleResultsElement.prepend(br);
-                    battleResultsElement.prepend(br2);
-                    battleResultsElement.prepend(br3);
                 } 
                 else {
                     resultElement3.textContent = ` ${this.name} stumbles forward and swings`;
@@ -397,32 +416,31 @@ document.addEventListener("DOMContentLoaded", function() {
                     battleResultsElement.prepend(resultElement2);
                     battleResultsElement.prepend(resultElement1);
                     battleResultsElement.prepend(resultElement3);
-                    battleResultsElement.prepend(br);
-                    battleResultsElement.prepend(br2);
-                    battleResultsElement.prepend(br3);
                 }
-            }
-            if(this.health < 0){
-                let resultElement1 = document.createElement("li");
-                let br1 = document.createElement("br");
-                let br2 = document.createElement("br");
-                let br3 = document.createElement("br");
-                resultElement1.textContent = `${opponent.name} Wins!!!`;
-                battleResultsElement.prepend(resultElement1);
+                if(poisonElement.textContent != '' && this.poisoned == true){
+                    battleResultsElement.prepend(poisonElement);
+                }
                 battleResultsElement.prepend(br1);
                 battleResultsElement.prepend(br2);
                 battleResultsElement.prepend(br3);
+            }
+
+            let winningbr1 = document.createElement("br");
+            let winningbr2 = document.createElement("br");
+            let winningbr3 = document.createElement("br");
+            if(this.health < 0){
+                victoryElement.textContent = `${opponent.name} Wins!!!`;
+                battleResultsElement.prepend(victoryElement);
+                battleResultsElement.prepend(winningbr1);
+                battleResultsElement.prepend(winningbr2);
+                battleResultsElement.prepend(winningbr3);
             }
             else if(opponent.health < 0){
-                let resultElement1 = document.createElement("li");
-                let br1 = document.createElement("br");
-                let br2 = document.createElement("br");
-                let br3 = document.createElement("br");
-                resultElement1.textContent = `${this.name} Wins!!!`;
-                battleResultsElement.prepend(resultElement1);
-                battleResultsElement.prepend(br1);
-                battleResultsElement.prepend(br2);
-                battleResultsElement.prepend(br3);
+                victoryElement.textContent = `${this.name} Wins!!!`;
+                battleResultsElement.prepend(victoryElement);
+                battleResultsElement.prepend(winningbr1);
+                battleResultsElement.prepend(winningbr2);
+                battleResultsElement.prepend(winningbr3);
             }
         }
 
