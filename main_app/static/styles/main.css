@@ -100,12 +100,12 @@ body {
   .detail__name {
     position: absolute;
     z-index: 5;
-    top: 495px;
+    top: 554px;
     pointer-events: none;
   }
   
   .detail__container {
-    margin-top: 550px;
+    margin-top: 590px;
     display: flex;
     flex-direction: column;
     align-items: center;
