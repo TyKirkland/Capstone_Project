@@ -7,18 +7,18 @@
 <div class="centered">
     <form class="centered" method = "post" action="{% url 'test_fight' %}">
         {% csrf_token %}
-        <select name="selected_characters" multiple>
+        <select class="selectcontainer" name="selected_characters" multiple>
             {% for character in characters %}
 
-                <option value="{{character.id}}">{{character.name}}</option>
+                <option class="selectoption" value="{{character.id}}">{{character.name}}</option>
 
             {% endfor %}
         </select>
-        <input class="margin" type="submit" value="FIGHT" />
-        <select name="selected_characters2" multiple>
+        <input class="button is-danger margin actualfightbutton" type="submit" value="FIGHT" />
+        <select class="selectcontainer" name="selected_characters2" multiple>
             {% for character in characters %}
 
-                <option value="{{character.id}}">{{character.name}}</option>
+                <option class="selectoption" value="{{character.id}}">{{character.name}}</option>
 
             {% endfor %}
         </select>
