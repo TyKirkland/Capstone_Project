@@ -577,18 +577,34 @@ document.addEventListener("DOMContentLoaded", function() {
             // defensive numbers
             let defenderMagicDefense = parseInt(opponent.magic_defense)
 
+            let spell_damage = water_damage + earth_damage + fire_damage + air_damage
+            spell_damage -= defenderMagicDefense
+
+            if(spell_damage < 0){
+                spell_damage = 0
+            }
+
+            if(spell_damage == 0){
+                spellElement3.textContent = `${opponent.name} completely blocks the damage with his magic defense!`;
+                spellElement3.style.color = "blue";
+            }
+            else{
+                spellElement3.textContent = `${opponent.name} takes ${spell_damage} damage!`;
+                spellElement3.style.color = "red";
+            }
+
             spellElement1.textContent = `${this.name} casts ${name}!`;
             spellElement2.textContent = `${on_use}`
-            spellElement3.textContent = `${opponent.name} takes ${water_damage + earth_damage + fire_damage + air_damage} damage!`;
             spellElement2.style.color = "plum";
-            spellElement3.style.color = "red";
             battleResultsElement.prepend(spellElement3);
             battleResultsElement.prepend(spellElement2);
             battleResultsElement.prepend(spellElement1);
             battleResultsElement.prepend(spellbr1);
             battleResultsElement.prepend(spellbr2);
             battleResultsElement.prepend(spellbr3);
-
+            opponent.health -= spell_damage
+            let defenderHealthElement = document.getElementById(opponent.character_id);
+            defenderHealthElement.textContent = `${opponent.health} Health`;
         }
     }
 
