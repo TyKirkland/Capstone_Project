@@ -158,13 +158,16 @@ document.addEventListener("DOMContentLoaded", function() {
             let attackerLifeStealAmount = attackerDamage * attackerLifeSteal;
             let defenderLifeStealAmount = defenderDamage * defenderLifeSteal;
 
+            attackerLifeStealAmount = Math.floor(attackerLifeStealAmount);
+            defenderLifeStealAmount = Math.floor(defenderLifeStealAmount);
+
             if(attackerLifeStealAmount > 0 && attackerLifeSteal >= Math.random()){
                 lifeStealElement.textContent = `${this.name} steals ${attackerLifeStealAmount} Health!`;
             }
 
             // implimenting health regen functionality, 15% chance to activate
             // also doesn't get activated on a combo turn
-            if(.15 > Math.random() && this.combo_turn == false && this.health !== this.max_health && this.health_regen > 0){
+            if(.25 > Math.random() && this.combo_turn == false && this.health !== this.max_health && this.health_regen > 0){
                 this.health = this.health + this.health_regen;
                 // make sure not to surpass max health!
                 if(this.health > this.max_health){
@@ -514,6 +517,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 if(poisonElement.textContent != '' && this.poisoned == true){
                     battleResultsElement.prepend(poisonElement);
+                }
+                if(healthRegenElement.textContent != ''){
+                    battleResultsElement.prepend(healthRegenElement);
                 }
                 battleResultsElement.prepend(br1);
                 battleResultsElement.prepend(br2);
