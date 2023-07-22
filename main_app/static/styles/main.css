@@ -1,12 +1,12 @@
 
 body {
-    background-color: rgb(46, 34, 44);
-    color: #ffffff;
+  background-color: rgb(15, 15, 31);
+  color: #ffffff;
     min-height: 100vh;
   }
 
   .navbarcolor {
-    background-color: rgb(34, 25, 33);
+    background-color: rgb(26, 26, 38);
   }
   
   
@@ -42,7 +42,7 @@ body {
   .card {
     transition: 0.1s linear;
     border: 1px solid white !important;
-    background-color: rgb(68, 53, 65);
+    background-color: rgb(44, 44, 58);
     width: 250px
   }
   
@@ -53,7 +53,7 @@ body {
   }
 
 .cardheaderbackground{
-  background-color: rgb(34, 25, 33) !important;
+  background-color: rgb(26, 26, 38);
   border: 1px solid white !important;
   border-left: 0px !important;
   border-right: 0px !important;
@@ -73,14 +73,14 @@ body {
     top: 45px;
     width: 500px;
     height: 500px;
-    background-color: rgb(68, 53, 65);
+    background-color: rgb(26, 26, 38);
     overflow: hidden;
     border-radius: 5px;
   }
   
   .detail__img::after {
     content: "";
-    background-image: linear-gradient(transparent 60%, rgb(34,25,33));
+    background-image: linear-gradient(transparent 60% rgb(26, 26, 38));
     position: absolute;
     top: 0;
     left: 0;
@@ -241,7 +241,7 @@ body {
 }
 
 .buttonbackground{
-  background-color: rgb(34, 25, 33);
+  background-color: rgb(26, 26, 38);
   color: white;
 }
 
