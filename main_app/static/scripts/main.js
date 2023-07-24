@@ -611,6 +611,27 @@ document.addEventListener("DOMContentLoaded", function() {
             opponent.health -= spell_damage
             let defenderHealthElement = document.getElementById(opponent.character_id);
             defenderHealthElement.textContent = `${opponent.health} Health`;
+
+            let victoryElement = document.createElement("li");
+            let winningbr1 = document.createElement("br");
+            let winningbr2 = document.createElement("br");
+            let winningbr3 = document.createElement("br");
+            if(this.health < 0){
+                victoryElement.textContent = `${opponent.name} Wins!!!`;
+                battleResultsElement.prepend(victoryElement);
+                battleResultsElement.prepend(winningbr1);
+                battleResultsElement.prepend(winningbr2);
+                battleResultsElement.prepend(winningbr3);
+                return
+            }
+            else if(opponent.health < 0){
+                victoryElement.textContent = `${this.name} Wins!!!`;
+                battleResultsElement.prepend(victoryElement);
+                battleResultsElement.prepend(winningbr1);
+                battleResultsElement.prepend(winningbr2);
+                battleResultsElement.prepend(winningbr3);
+                return
+            }
         }
     }
 
